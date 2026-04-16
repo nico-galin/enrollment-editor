@@ -1,0 +1,247 @@
+ 
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;font-size:13px;}
+a{color:#1971c2;text-decoration:none;}
+a:hover{text-decoration:underline;}
+.root{background:#f4f4f4;min-height:700px;}
+.topbar{background:#1c3148;display:flex;align-items:center;height:46px;padding:0 12px;gap:0;}
+.logo{font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-right:20px;white-space:nowrap;}
+.logo b{font-weight:900;}
+.logo span{font-weight:300;}
+.tnav{color:#b0bec5;font-size:12.5px;padding:0 13px;height:46px;display:flex;align-items:center;gap:5px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
+.tnav svg{flex-shrink:0;}
+.tnav.act{color:#fff;border-bottom:3px solid #5b9bd5;background:rgba(255,255,255,0.08);}
+.tnav:hover:not(.act){color:#dce6ef;}
+.topright{margin-left:auto;display:flex;align-items:center;gap:10px;color:#cfd8dc;font-size:12px;}
+.gmail-icon{background:#d93025;color:#fff;font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;display:flex;align-items:center;gap:3px;}
+.cal-icon{background:#1a73e8;color:#fff;font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;}
+.drive-icon{font-size:15px;}
+.avatar{width:28px;height:28px;border-radius:50%;background:#8bc34a;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;cursor:pointer;}
+.alertbar{background:#fff9c4;border-bottom:2px solid #f9a825;padding:7px 14px;font-size:12.5px;display:flex;align-items:center;gap:7px;color:#3e2900;}
+.alertbar .bold{font-weight:700;color:#3e2900;}
+.alertbar a{color:#1565c0;font-size:12.5px;margin-left:auto;font-weight:700;}
+.warn-tri{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:13px solid #f9a825;display:inline-block;flex-shrink:0;}
+.pagetitle{padding:14px 16px 6px;font-size:20px;font-weight:400;color:#212121;background:#f4f4f4;}
+.mainwrap{display:flex;gap:0;padding:0 16px 20px;background:#f4f4f4;}
+.col-left{width:265px;flex-shrink:0;background:#fff;border:1px solid #c8c8c8;padding:14px;}
+.col-mid{flex:1;background:#fff;border:1px solid #c8c8c8;border-left:none;border-right:none;padding:10px 16px;}
+.col-right{width:295px;flex-shrink:0;background:#fff;border:1px solid #c8c8c8;padding:12px 14px;}
+.ptitle{font-size:14px;font-weight:700;color:#212121;margin-bottom:12px;}
+.prow{display:grid;grid-template-columns:105px 1fr;gap:3px;margin-bottom:7px;font-size:12.5px;align-items:start;}
+.plabel{color:#555;font-size:12.5px;}
+.pval{color:#212121;font-size:12.5px;line-height:1.45;}
+.pval small{display:block;font-size:11.5px;color:#555;}
+.utab{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:2px;}
+.utab td{padding:1px 0;}
+.utab td:last-child{text-align:right;}
+.semhdr{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px;}
+.semtitle{font-size:14.5px;font-weight:700;color:#1971c2;}
+.semtitle a{color:#1971c2;font-size:14.5px;font-weight:700;}
+.tbk{font-size:12px;color:#1971c2;}
+.crow{display:grid;grid-template-columns:100px 1fr 36px 44px;gap:5px;font-size:12.5px;margin-bottom:10px;align-items:start;}
+.ccode a{color:#1971c2;font-size:12.5px;line-height:1.5;}
+.cmeta{color:#555;font-size:11.5px;line-height:1.55;}
+.cunits{text-align:right;font-size:12.5px;}
+.cgrade{text-align:right;font-size:12.5px;color:#555;}
+.enrollsum{text-align:right;font-size:12px;color:#555;margin-top:8px;padding-top:8px;border-top:1px solid #e5e5e5;}
+.hdiv{border:none;border-top:1px solid #ddd;margin:12px 0;}
+.etabs{display:flex;border-bottom:1px solid #ccc;margin-bottom:10px;}
+.etab{font-size:12px;padding:5px 11px;color:#555;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
+.etab.act{color:#1971c2;border-bottom:3px solid #1971c2;font-weight:700;}
+.rtitle{font-size:12.5px;font-weight:700;color:#212121;margin-bottom:7px;}
+.dtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+.dtable th{color:#555;font-weight:700;text-align:left;padding-bottom:4px;font-size:11.5px;border-bottom:1px solid #e0e0e0;}
+.dtable td{padding:3px 0;color:#212121;vertical-align:top;}
+.dtable td.muted{color:#666;}
+.ddtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+.ddtable th{color:#555;font-weight:700;text-align:left;padding-bottom:4px;font-size:11.5px;border-bottom:1px solid #e0e0e0;}
+.ddtable td{padding:3px 0;color:#212121;}
+.ddtable td:last-child{text-align:right;color:#555;}
+.btnblue{background:#1c5fa8;color:#fff;border:none;border-radius:3px;padding:6px 13px;font-size:12.5px;cursor:pointer;font-weight:400;}
+.btnout{background:#fff;color:#1c5fa8;border:1px solid #1c5fa8;border-radius:3px;padding:6px 11px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
+.btnrow{display:flex;align-items:center;gap:8px;margin:10px 0 12px;}
+.hlinks{font-size:12px;line-height:2.1;}
+.hlinks div{display:flex;align-items:center;gap:5px;}
+.hlinks .sq{width:9px;height:9px;background:#5b9bd5;display:inline-block;flex-shrink:0;}
+.learnmore{color:#1971c2;font-size:12px;display:block;margin-top:4px;}
+.fexam-title{font-size:14px;font-weight:700;color:#212121;margin:14px 0 5px;}
+.fexam-note{font-size:12px;color:#555;margin-bottom:6px;}
+.fexam-sub{font-size:13px;font-weight:700;color:#212121;}
+.infodot{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#5b9bd5;color:#fff;font-size:9px;font-weight:700;vertical-align:middle;margin-left:2px;}
+.planner-icon{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#5b9bd5;color:#fff;font-size:9px;font-weight:700;margin-right:3px;}
+.extlink::after{content:"↗";font-size:10px;margin-left:2px;color:#1971c2;}
+</style>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">CalCentral My Academics page for Kaan Ulupinar</h2>
+
+<div class="root">
+  <div class="topbar">
+    <div class="logo"><b>CAL</b><span>CENTRAL</span></div>
+
+    <div class="tnav">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="#b0bec5"><path d="M8 1L1 7h2v7h4v-4h2v4h4V7h2z"/></svg>
+      My Dashboard
+    </div>
+    <div class="tnav act">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="#fff"><rect x="1" y="2" width="14" height="2"/><rect x="1" y="7" width="14" height="2"/><rect x="1" y="12" width="14" height="2"/></svg>
+      My Academics
+    </div>
+    <div class="tnav">
+      <svg width="12" height="13" viewBox="0 0 14 16" fill="#b0bec5"><path d="M7 0C3.13 0 0 3.13 0 7c0 3.21 2.14 5.9 5.06 6.73L7 16l1.94-2.27C11.86 12.9 14 10.21 14 7c0-3.87-3.13-7-7-7zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 10.5c-2.33 0-4.31-1.46-5.11-3.5h10.22c-.8 2.04-2.78 3.5-5.11 3.5z"/></svg>
+      $ My Finances
+    </div>
+    <div class="tnav">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="#b0bec5"><rect x="0" y="0" width="7" height="7"/><rect x="9" y="0" width="7" height="7"/><rect x="0" y="9" width="7" height="7"/><rect x="9" y="9" width="7" height="7"/></svg>
+      My Campus
+    </div>
+
+    <div class="topright">
+      <span class="gmail-icon">
+        <svg width="11" height="9" viewBox="0 0 16 12" fill="none"><path d="M0 1.5L8 7l8-5.5V11H0V1.5z" fill="#fff" opacity=".15"/><path d="M0 1.5l8 5.5 8-5.5" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+        6854
+      </span>
+      <span class="cal-icon" style="padding:2px 6px;font-weight:700;background:#1565c0;">31</span>
+      <span style="color:#b0bec5;">0</span>
+      <svg width="18" height="16" viewBox="0 0 24 20"><path d="M12 0L0 7l4.5 2.6V17H9v-4h6v4h4.5V9.6L24 7z" fill="#4CAF50"/><path d="M12 0l12 7-4.5 2.6V17H19.5V9.6L12 5.2 4.5 9.6V17H0V9.6L0 7z" fill="#FBBC04" opacity=".0"/><polygon points="0,7 12,0 24,7 12,14" fill="none" stroke="#EA4335" stroke-width="0"/><path d="M4 20l8-6 8 6" fill="#34A853" opacity=".7"/></svg>
+      <div class="avatar">K</div>
+      <span style="color:#cfd8dc;font-size:12px;">Kaan ▾</span>
+    </div>
+  </div>
+
+  <div class="alertbar">
+    <span class="warn-tri"></span>
+    <span class="bold">CalCentral Update</span>
+    &nbsp;CalCentral will be unavailable Wednesday morning, April 22, 2026, for scheduled maintenance
+    <a href="#">Learn More</a>
+  </div>
+
+  <div class="pagetitle">My Academics</div>
+
+  <div class="mainwrap">
+
+    <div class="col-left">
+      <div class="ptitle">Academic Profile</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;">
+        <div style="width:68px;height:72px;border-radius:3px;background:#c4a882;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#7a5c3a;font-size:22px;font-weight:700;">K</div>
+        <div style="font-size:15px;font-weight:700;color:#212121;padding-top:4px;">Kaan Ulupinar</div>
+      </div>
+      <div class="prow"><span class="plabel">Major</span><span class="pval">Rausser Clg Natural Resources<br><small>Molecular Environ Biology BS</small></span></div>
+      <div class="prow"><span class="plabel">Academic Career</span><span class="pval">Undergraduate</span></div>
+      <div class="prow"><span class="plabel">Level</span><span class="pval">Sophomore <span class="infodot">i</span></span></div>
+      <div class="prow" style="align-items:start;">
+        <span class="plabel">Terms<br>Information</span>
+        <span class="pval">Terms in Attendance<br><small>5</small><br><br>Expected Graduation<br><strong>Spring 2028</strong><br><small>Consult your college advisor with questions or concerns.</small></span>
+      </div>
+      <div class="prow" style="margin-top:8px;align-items:start;">
+        <span class="plabel">Cumulative Units</span>
+        <span class="pval">
+          <table class="utab">
+            <tr><td><strong>Total Units</strong></td><td><strong>57.36</strong></td></tr>
+            <tr><td>Transfer Units</td><td>14.360</td></tr>
+            <tr><td>P/NP Total</td><td>1</td></tr>
+            <tr><td>P/NP Passed</td><td>1</td></tr>
+          </table>
+        </span>
+      </div>
+      <div class="prow" style="margin-top:8px;"><span class="plabel">GPA</span><span><a href="#" style="color:#1971c2;">Show GPA</a></span></div>
+    </div>
+
+    <div class="col-mid">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <span style="font-size:14.5px;font-weight:700;color:#212121;">Semesters</span>
+        <a href="#" style="font-size:12.5px;color:#1971c2;">View Academic Summary →</a>
+      </div>
+
+      <div class="semhdr">
+        <span class="semtitle"><a href="#">Fall 2026 →</a></span>
+        <a href="#" class="tbk">Textbooks</a>
+      </div>
+      <div class="crow">
+        <div class="ccode"><a href="#">CHEM 3B</a></div>
+        <div><div style="font-size:12.5px;color:#212121;">Chemical Structure and…</div><div class="cmeta">LEC &nbsp;TuTh 8:00A–9:29A<br>DIS &nbsp;W 12:00P–12:59P</div></div>
+        <div class="cunits">4.0</div><div class="cgrade">GRD</div>
+      </div>
+      <div class="crow">
+        <div class="ccode"><a href="#">CHEM 3BL</a></div>
+        <div><div style="font-size:12.5px;color:#212121;">Organic Chemistry Laboratory</div><div class="cmeta">LEC &nbsp;F 4:00P–4:59P<br>LAB &nbsp;M 1:00P–4:59P</div></div>
+        <div class="cunits">2.0</div><div class="cgrade">GRD</div>
+      </div>
+      <div class="crow">
+        <div class="ccode"><a href="#">ESPM C105</a></div>
+        <div><div style="font-size:12.5px;color:#212121;">Natural History Museums and…</div><div class="cmeta">LEC &nbsp;TuTh 3:30P–4:59P</div></div>
+        <div class="cunits">3.0</div><div class="cgrade">GRD</div>
+      </div>
+      <div class="crow">
+        <div class="ccode"><a href="#">MCELLBI 135A</a></div>
+        <div><div style="font-size:12.5px;color:#212121;">Topics in Cell and…</div><div class="cmeta">LEC &nbsp;MWF 9:00A–9:59A<br>DIS &nbsp;W 1:00P–1:59P</div></div>
+        <div class="cunits">3.0</div><div class="cgrade">GRD</div>
+      </div>
+      <div class="enrollsum">My Enrolled Units: <strong>12</strong> &nbsp;&nbsp; My Waitlisted Units: <strong>0</strong></div>
+
+      <div class="hdiv"></div>
+
+      <div class="semhdr">
+        <span class="semtitle"><a href="#">Summer 2026 →</a></span>
+        <a href="#" class="tbk">Textbooks</a>
+      </div>
+      <div class="crow">
+        <div class="ccode"><a href="#">ASAMST<br>20AC (Session A)</a></div>
+        <div><div style="font-size:12.5px;color:#212121;">Asian American Communities…</div><div class="cmeta">LEC &nbsp;Su 12:00A–12:01A<br>DIS &nbsp;Sa 12:00A–12:01A</div></div>
+        <div class="cunits">4.0</div><div class="cgrade">GRD</div>
+      </div>
+      <div class="crow">
+        <div class="ccode"><a href="#">COLWRIT<br>N132 (Session P)</a></div>
+        <div><div style="font-size:12.5px;color:#212121;">The Craft of Short Fiction</div></div>
+        <div class="cunits">2.0</div><div class="cgrade">GRD</div>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div class="ptitle" style="display:flex;align-items:baseline;gap:7px;">
+        Class Enrollment
+        <span style="font-size:10.5px;font-weight:400;color:#555;text-transform:uppercase;letter-spacing:0.3px;">UNDERGRADUATE</span>
+      </div>
+      <div class="etabs">
+        <div class="etab">Fall 2026</div>
+        <div class="etab">Summer 2026</div>
+        <div class="etab act">Spring 2026</div>
+      </div>
+
+      <div class="rtitle">Spring 2026 Dates <span style="font-size:11px;font-weight:400;color:#555;">(Pacific Time) <span class="infodot">i</span></span></div>
+      <table class="dtable">
+        <thead><tr><th>Period</th><th>Start</th><th></th><th>End</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 1</td><td>Oct 29</td><td class="muted" style="font-size:11px;padding-left:3px;">11:00am</td><td>Nov 17 <span class="muted" style="font-size:11px;">11:59pm</span></td></tr>
+          <tr><td>Phase 2 Enrollment</td><td>Nov 26</td><td class="muted" style="font-size:11px;padding-left:3px;">11:00am</td><td>Jan 12 <span class="muted" style="font-size:11px;">11:59pm</span></td></tr>
+          <tr><td>Adjustment</td><td>Jan 13</td><td class="muted" style="font-size:11px;padding-left:3px;">9:00am</td><td>Apr 4 <span class="muted" style="font-size:11px;">11:59pm</span></td></tr>
+        </tbody>
+      </table>
+
+      <table class="ddtable">
+        <thead><tr><th>Deadline</th><th style="text-align:right;">Deadline Date</th></tr></thead>
+        <tbody>
+          <tr><td>Early drop <span class="infodot">i</span></td><td>Jan 31 <span style="font-size:11px;color:#555;">11:59pm</span></td></tr>
+          <tr><td>Add, drop, or change units</td><td>Feb 12 <span style="font-size:11px;color:#555;">11:59pm</span></td></tr>
+          <tr><td>Grading option</td><td>Apr 4 <span style="font-size:11px;color:#555;">11:59pm</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="btnrow">
+        <button class="btnblue">Enrollment Center</button>
+        <button class="btnout"><span class="planner-icon">i</span>Schedule Planner</button>
+      </div>
+
+      <div class="hlinks">
+        <div><span class="sq"></span><a href="#" class="extlink">How to Change Grading Basis</a></div>
+        <div><span class="sq"></span><a href="#" class="extlink">How to Add, Drop or Swap a Class</a></div>
+        <div><span class="sq"></span><a href="#" class="extlink">How to Use the Schedule Planner</a></div>
+      </div>
+      <a href="#" class="learnmore">Learn More About Enrollment ∨</a>
+
+      <div class="fexam-title">Final Exam Schedule</div>
+      <div class="fexam-note">Exam information is subject to change. <a href="#">Learn more</a></div>
+      <div class="fexam-sub">Spring 2026 Final Exams</div>
+    </div>
+
+  </div>
+</div>
