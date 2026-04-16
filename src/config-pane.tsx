@@ -21,6 +21,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react';
 import { AppDataSchema } from './schema';
 import type { AppData } from './default-data';
