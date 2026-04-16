@@ -1,4 +1,66 @@
-export const defaultData = {
+export interface Section {
+  type: string;
+  days: string;
+  time: string;
+}
+
+export interface Course {
+  id: string;
+  code: string;
+  title: string;
+  sections: Section[];
+  units: string;
+  grade: string;
+}
+
+export interface Semester {
+  id: string;
+  label: string;
+  courses: Course[];
+}
+
+export interface Phase {
+  label: string;
+  start: string;
+  startTime: string;
+  end: string;
+  endTime: string;
+}
+
+export interface Deadline {
+  label: string;
+  date: string;
+  time: string;
+}
+
+export interface Student {
+  name: string;
+  initial: string;
+  major: string;
+  majorDegree: string;
+  career: string;
+  level: string;
+  termsInAttendance: number | string;
+  expectedGraduation: string;
+  totalUnits: string;
+  transferUnits: string;
+  pnpTotal: string;
+  pnpPassed: string;
+}
+
+export interface Enrollment {
+  semester: string;
+  phases: Phase[];
+  deadlines: Deadline[];
+}
+
+export interface AppData {
+  student: Student;
+  semesters: Semester[];
+  enrollment: Enrollment;
+}
+
+export const defaultData: AppData = {
   student: {
     name: "Kaan Ulupinar",
     initial: "K",
