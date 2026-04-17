@@ -16,8 +16,9 @@ function Toolbar({
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
-  const capture = () =>
-    htmlToImage.toPng(previewRef.current!, { pixelRatio: 2 });
+  const captureOptions = { pixelRatio: 2, width: PREVIEW_WIDTH, height: PREVIEW_HEIGHT };
+
+  const capture = () => htmlToImage.toPng(previewRef.current!, captureOptions);
 
   const handleDownload = async () => {
     setDownloading(true);
@@ -35,9 +36,7 @@ function Toolbar({
   const handleCopy = async () => {
     setCopying(true);
     try {
-      const blob = await htmlToImage.toBlob(previewRef.current!, {
-        pixelRatio: 2,
-      });
+      const blob = await htmlToImage.toBlob(previewRef.current!, captureOptions);
       await navigator.clipboard.write([
         new ClipboardItem({ 'image/png': blob! }),
       ]);
@@ -102,6 +101,7 @@ function loadPersistedData(): AppData {
 }
 
 const PREVIEW_WIDTH = 1395;
+const PREVIEW_HEIGHT = Math.round(PREVIEW_WIDTH * 9 / 16);
 
 function App() {
   const [data, setData] = useState<AppData>(loadPersistedData);
