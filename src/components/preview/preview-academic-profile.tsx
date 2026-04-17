@@ -13,9 +13,7 @@ function ProfileRow({
   return (
     <div className='grid grid-cols-[120px_1fr] gap-[3px] mb-[7px] text-[12.5px] items-start'>
       <span className='text-[#555] text-[12.5px] font-bold'>{label}</span>
-      <span className='text-[#212121] text-[13.5px] leading-[1.45]'>
-        {children}
-      </span>
+      <span className='text-[13.5px] leading-[1.45]'>{children}</span>
     </div>
   );
 }
@@ -26,16 +24,14 @@ export function PreviewAcademicProfile({ student }: { student: Student }) {
       <Pane.Header>Academic Profile</Pane.Header>
       <Pane.Content>
         <div className='grid grid-cols-[120px_1fr] gap-[3px] mb-[7px] items-start'>
-          <div className='w-[68px] aspect-[3/3.8] rounded-[3px] bg-[#c4a882] flex items-center justify-center text-[#7a5c3a] text-[22px] font-bold overflow-hidden'>
+          <div className='w-[90px] aspect-[3/3.6] bg-[#c4a882] flex items-center justify-center text-[#7a5c3a] text-[22px] font-bold overflow-hidden'>
             {student.photo ? (
               <img src={student.photo} className='w-full h-full object-cover' />
             ) : (
               student.name.charAt(0)
             )}
           </div>
-          <div className='text-[15px] font-bold text-[#212121] pt-1'>
-            {student.name}
-          </div>
+          <div className='text-[15px] font-bold pt-1'>{student.name}</div>
         </div>
         <hr className='border-t border-[#efefef] my-3' />
         <ProfileRow label='Major'>
@@ -68,9 +64,7 @@ export function PreviewAcademicProfile({ student }: { student: Student }) {
               <img src={infoImg} width={18} />
             </div>
           </span>
-          <br />
           <span className='block'>{student.termsInAttendance}</span>
-          <br />
           <span className='text-[#999]'>Expected Graduation</span>
           <br />
           <strong>{student.expectedGraduation}</strong>
@@ -110,7 +104,7 @@ export function PreviewAcademicProfile({ student }: { student: Student }) {
           </span>
         </div>
         <hr className='border-t border-[#efefef] my-2' />
-        <div className='grid grid-cols-[120px_1fr] gap-[3px] mb-[7px] text-[12.5px] mt-2'>
+        <div className='grid grid-cols-[120px_1fr] gap-[3px] mb-9 text-[12.5px] mt-2'>
           <span className='text-[#555] font-bold'>GPA</span>
           <a href='#' className='text-preview-link font-semibold'>
             Show GPA

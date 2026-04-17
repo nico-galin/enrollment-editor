@@ -2,6 +2,7 @@ import type { Enrollment } from '../../default-data';
 import Pane from '../pane';
 import plannerImg from '../../assets/planner.png';
 import infoImg from '../../assets/info.png';
+import { ChevronDown, SquareArrowOutUpRight } from 'lucide-react';
 
 const HELP_LINKS = [
   'How to Change Grading Basis',
@@ -30,7 +31,7 @@ export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
                   className={[
                     'flex-1 min-w-0 text-center text-[13px] px-[11px] py-[8px] cursor-pointer whitespace-nowrap border-b-[3px]',
                     active
-                      ? 'text-[#1971c2] border-[#1971c2] font-bold'
+                      ? 'text-[#205C83] border-[#205C83] font-bold'
                       : 'text-[#555] border-transparent font-normal',
                   ].join(' ')}
                 >
@@ -41,7 +42,7 @@ export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
           </div>
 
           {/* Enrollment dates */}
-          <div className='flex text-[14px] font-bold text-[#212121] mb-[7px]'>
+          <div className='flex text-[14px] font-bold text-[#1673AC] mb-[7px]'>
             {enrollment.semester} Dates
             <span className='ml-1 mr-2 text-[12px] font-normal text-[#555]'>
               (Pacific Time)
@@ -63,11 +64,21 @@ export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
             ))}
             {enrollment.phases.map((phase, i) => (
               <>
-                <div key={`${i}-label`}>{phase.label}</div>
-                <div key={`${i}-start`}>{phase.start}</div>
-                <div key={`${i}-startTime`}>{phase.startTime}</div>
-                <div key={`${i}-end`}>{phase.end}</div>
-                <div key={`${i}-endTime`}>{phase.endTime}</div>
+                <div key={`${i}-label`} className='font-semibold'>
+                  {phase.label}
+                </div>
+                <div key={`${i}-start`} className='font-semibold'>
+                  {phase.start}
+                </div>
+                <div key={`${i}-startTime`} className='font-medium'>
+                  {phase.startTime}
+                </div>
+                <div key={`${i}-end`} className='font-semibold'>
+                  {phase.end}
+                </div>
+                <div key={`${i}-endTime`} className='font-medium'>
+                  {phase.endTime}
+                </div>
               </>
             ))}
           </div>
@@ -84,58 +95,67 @@ export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
             <div className='text-[#555] font-bold text-[12px]'></div>
             {enrollment.deadlines.map((deadline, i) => (
               <>
-                <div key={`${i}-label`} className='flex gap-1'>
+                <div key={`${i}-label`} className='flex gap-1 font-semibold'>
                   {deadline.label}
                   {deadline.label === 'Early drop' ? (
                     <img src={infoImg} width={14} />
                   ) : null}
                 </div>
-                <div key={`${i}-date`}>{deadline.date}</div>
-                <div key={`${i}-time`}>{deadline.time}</div>
+                <div key={`${i}-date`} className='font-semibold'>
+                  {deadline.date}
+                </div>
+                <div key={`${i}-time`} className='font-medium'>
+                  {deadline.time}
+                </div>
               </>
             ))}
           </div>
 
           {/* Action buttons */}
-          <div className='flex items-center justify-center gap-2 mt-[10px] mb-3'>
-            <button className='bg-[#1c5fa8] text-white rounded-[6px] px-3 py-1 text-[12.5px] cursor-pointer'>
+          <div className='flex items-center justify-center gap-2 mt-4 mb-7'>
+            <button className='bg-[#1673AC] text-white rounded-[6px] px-3 py-1 text-sm cursor-pointer'>
               Enrollment Center
             </button>
-            <button className='flex gap-1 align-center text-[#1c5fa8] px-[11px] py-[6px] text-[12.5px] cursor-pointer'>
+            <button className='flex gap-1 align-center text-[#1673AC] px-[11px] py-[6px] text-sm cursor-pointer font-semibold'>
               <img src={plannerImg} width={14} />
               Schedule Planner
             </button>
           </div>
 
           {/* Help links */}
-          <div className='text-[12px] leading-[2.1]'>
+          <div className='text-sm'>
             {HELP_LINKS.map((link) => (
-              <div key={link} className='flex items-center gap-[5px]'>
+              <div key={link} className='flex items-center gap-2'>
                 <span className='w-[9px] h-[9px] bg-[#5b9bd5] inline-block shrink-0' />
-                <a href='#' className='text-[#1971c2] font-bold'>
-                  {link} ↗
+                <a
+                  href='#'
+                  className='text-[#205C83] text-sm font-semibold flex items-center gap-1'
+                >
+                  {link}
+                  <SquareArrowOutUpRight size={12} strokeWidth={2.8} />
                 </a>
               </div>
             ))}
           </div>
           <a
             href='#'
-            className='text-[#1971c2] text-[12px] block mt-2 text-center font-bold'
+            className='text-[#205C83] text-sm flex items-center justify-center gap-1 mt-2 font-bold'
           >
-            Learn More About Enrollment ∨
+            Learn More About Enrollment
+            <ChevronDown size={14} />
           </a>
         </Pane.Content>
       </Pane>
       <Pane>
         <Pane.Header>Final Exam Schedule</Pane.Header>
         <Pane.Content>
-          <div className='text-[12px] text-[#555] mb-[6px]'>
+          <div className='text-[14px] mb-[6px]'>
             Exam information is subject to change.{' '}
-            <a href='#' className='text-[#1971c2]'>
-              Learn more
+            <a href='#' className='text-[#205C83]'>
+              <b>Learn more</b>
             </a>
           </div>
-          <div className='text-[13px] font-bold text-[#212121]'>
+          <div className='text-[18px] font-semibold'>
             {enrollment.semester} Final Exams
           </div>
         </Pane.Content>

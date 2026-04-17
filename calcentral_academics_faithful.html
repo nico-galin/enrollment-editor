@@ -1,7 +1,7 @@
  
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;font-size:13px;}
-a{color:#1971c2;text-decoration:none;}
+a{color:#205C83;text-decoration:none;}
 a:hover{text-decoration:underline;}
 .root{background:#f4f4f4;min-height:700px;}
 .topbar{background:#1c3148;display:flex;align-items:center;height:46px;padding:0 12px;gap:0;}
@@ -21,25 +21,25 @@ a:hover{text-decoration:underline;}
 .alertbar .bold{font-weight:700;color:#3e2900;}
 .alertbar a{color:#1565c0;font-size:12.5px;margin-left:auto;font-weight:700;}
 .warn-tri{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:13px solid #f9a825;display:inline-block;flex-shrink:0;}
-.pagetitle{padding:14px 16px 6px;font-size:20px;font-weight:400;color:#212121;background:#f4f4f4;}
+.pagetitle{padding:14px 16px 6px;font-size:20px;font-weight:400;color:#1673AC;background:#f4f4f4;}
 .mainwrap{display:flex;gap:0;padding:0 16px 20px;background:#f4f4f4;}
 .col-left{width:265px;flex-shrink:0;background:#fff;border:1px solid #c8c8c8;padding:14px;}
 .col-mid{flex:1;background:#fff;border:1px solid #c8c8c8;border-left:none;border-right:none;padding:10px 16px;}
 .col-right{width:295px;flex-shrink:0;background:#fff;border:1px solid #c8c8c8;padding:12px 14px;}
-.ptitle{font-size:14px;font-weight:700;color:#212121;margin-bottom:12px;}
+.ptitle{font-size:14px;font-weight:700;color:#1673AC;margin-bottom:12px;}
 .prow{display:grid;grid-template-columns:105px 1fr;gap:3px;margin-bottom:7px;font-size:12.5px;align-items:start;}
 .plabel{color:#555;font-size:12.5px;}
-.pval{color:#212121;font-size:12.5px;line-height:1.45;}
+.pval{color:#1673AC;font-size:12.5px;line-height:1.45;}
 .pval small{display:block;font-size:11.5px;color:#555;}
 .utab{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:2px;}
 .utab td{padding:1px 0;}
 .utab td:last-child{text-align:right;}
 .semhdr{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px;}
-.semtitle{font-size:14.5px;font-weight:700;color:#1971c2;}
-.semtitle a{color:#1971c2;font-size:14.5px;font-weight:700;}
-.tbk{font-size:12px;color:#1971c2;}
+.semtitle{font-size:14.5px;font-weight:700;color:#205C83;}
+.semtitle a{color:#205C83;font-size:14.5px;font-weight:700;}
+.tbk{font-size:12px;color:#205C83;}
 .crow{display:grid;grid-template-columns:100px 1fr 36px 44px;gap:5px;font-size:12.5px;margin-bottom:10px;align-items:start;}
-.ccode a{color:#1971c2;font-size:12.5px;line-height:1.5;}
+.ccode a{color:#205C83;font-size:12.5px;line-height:1.5;}
 .cmeta{color:#555;font-size:11.5px;line-height:1.55;}
 .cunits{text-align:right;font-size:12.5px;}
 .cgrade{text-align:right;font-size:12.5px;color:#555;}
@@ -47,29 +47,29 @@ a:hover{text-decoration:underline;}
 .hdiv{border:none;border-top:1px solid #ddd;margin:12px 0;}
 .etabs{display:flex;border-bottom:1px solid #ccc;margin-bottom:10px;}
 .etab{font-size:12px;padding:5px 11px;color:#555;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
-.etab.act{color:#1971c2;border-bottom:3px solid #1971c2;font-weight:700;}
-.rtitle{font-size:12.5px;font-weight:700;color:#212121;margin-bottom:7px;}
+.etab.act{color:#205C83;border-bottom:3px solid #205C83;font-weight:700;}
+.rtitle{font-size:12.5px;font-weight:700;color:#1673AC;margin-bottom:7px;}
 .dtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
 .dtable th{color:#555;font-weight:700;text-align:left;padding-bottom:4px;font-size:11.5px;border-bottom:1px solid #e0e0e0;}
-.dtable td{padding:3px 0;color:#212121;vertical-align:top;}
+.dtable td{padding:3px 0;color:#1673AC;vertical-align:top;}
 .dtable td.muted{color:#666;}
 .ddtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
 .ddtable th{color:#555;font-weight:700;text-align:left;padding-bottom:4px;font-size:11.5px;border-bottom:1px solid #e0e0e0;}
-.ddtable td{padding:3px 0;color:#212121;}
+.ddtable td{padding:3px 0;color:#1673AC;}
 .ddtable td:last-child{text-align:right;color:#555;}
-.btnblue{background:#1c5fa8;color:#fff;border:none;border-radius:3px;padding:6px 13px;font-size:12.5px;cursor:pointer;font-weight:400;}
-.btnout{background:#fff;color:#1c5fa8;border:1px solid #1c5fa8;border-radius:3px;padding:6px 11px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
+.btnblue{background:#1673AC;color:#fff;border:none;border-radius:3px;padding:6px 13px;font-size:12.5px;cursor:pointer;font-weight:400;}
+.btnout{background:#fff;color:#1673AC;border:1px solid #1673AC;border-radius:3px;padding:6px 11px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
 .btnrow{display:flex;align-items:center;gap:8px;margin:10px 0 12px;}
 .hlinks{font-size:12px;line-height:2.1;}
 .hlinks div{display:flex;align-items:center;gap:5px;}
 .hlinks .sq{width:9px;height:9px;background:#5b9bd5;display:inline-block;flex-shrink:0;}
-.learnmore{color:#1971c2;font-size:12px;display:block;margin-top:4px;}
-.fexam-title{font-size:14px;font-weight:700;color:#212121;margin:14px 0 5px;}
+.learnmore{color:#205C83;font-size:12px;display:block;margin-top:4px;}
+.fexam-title{font-size:14px;font-weight:700;color:#1673AC;margin:14px 0 5px;}
 .fexam-note{font-size:12px;color:#555;margin-bottom:6px;}
-.fexam-sub{font-size:13px;font-weight:700;color:#212121;}
+.fexam-sub{font-size:13px;font-weight:700;color:#1673AC;}
 .infodot{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#5b9bd5;color:#fff;font-size:9px;font-weight:700;vertical-align:middle;margin-left:2px;}
 .planner-icon{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#5b9bd5;color:#fff;font-size:9px;font-weight:700;margin-right:3px;}
-.extlink::after{content:"↗";font-size:10px;margin-left:2px;color:#1971c2;}
+.extlink::after{content:"↗";font-size:10px;margin-left:2px;color:#205C83;}
 </style>
 
 <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">CalCentral My Academics page for Kaan Ulupinar</h2>
@@ -123,7 +123,7 @@ a:hover{text-decoration:underline;}
       <div class="ptitle">Academic Profile</div>
       <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;">
         <div style="width:68px;height:72px;border-radius:3px;background:#c4a882;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#7a5c3a;font-size:22px;font-weight:700;">K</div>
-        <div style="font-size:15px;font-weight:700;color:#212121;padding-top:4px;">Kaan Ulupinar</div>
+        <div style="font-size:15px;font-weight:700;color:#1673AC;padding-top:4px;">Kaan Ulupinar</div>
       </div>
       <div class="prow"><span class="plabel">Major</span><span class="pval">Rausser Clg Natural Resources<br><small>Molecular Environ Biology BS</small></span></div>
       <div class="prow"><span class="plabel">Academic Career</span><span class="pval">Undergraduate</span></div>
@@ -143,13 +143,13 @@ a:hover{text-decoration:underline;}
           </table>
         </span>
       </div>
-      <div class="prow" style="margin-top:8px;"><span class="plabel">GPA</span><span><a href="#" style="color:#1971c2;">Show GPA</a></span></div>
+      <div class="prow" style="margin-top:8px;"><span class="plabel">GPA</span><span><a href="#" style="color:#205C83;">Show GPA</a></span></div>
     </div>
 
     <div class="col-mid">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <span style="font-size:14.5px;font-weight:700;color:#212121;">Semesters</span>
-        <a href="#" style="font-size:12.5px;color:#1971c2;">View Academic Summary →</a>
+        <span style="font-size:14.5px;font-weight:700;color:#1673AC;">Semesters</span>
+        <a href="#" style="font-size:12.5px;color:#205C83;">View Academic Summary →</a>
       </div>
 
       <div class="semhdr">
@@ -158,22 +158,22 @@ a:hover{text-decoration:underline;}
       </div>
       <div class="crow">
         <div class="ccode"><a href="#">CHEM 3B</a></div>
-        <div><div style="font-size:12.5px;color:#212121;">Chemical Structure and…</div><div class="cmeta">LEC &nbsp;TuTh 8:00A–9:29A<br>DIS &nbsp;W 12:00P–12:59P</div></div>
+        <div><div style="font-size:12.5px;color:#1673AC;">Chemical Structure and…</div><div class="cmeta">LEC &nbsp;TuTh 8:00A–9:29A<br>DIS &nbsp;W 12:00P–12:59P</div></div>
         <div class="cunits">4.0</div><div class="cgrade">GRD</div>
       </div>
       <div class="crow">
         <div class="ccode"><a href="#">CHEM 3BL</a></div>
-        <div><div style="font-size:12.5px;color:#212121;">Organic Chemistry Laboratory</div><div class="cmeta">LEC &nbsp;F 4:00P–4:59P<br>LAB &nbsp;M 1:00P–4:59P</div></div>
+        <div><div style="font-size:12.5px;color:#1673AC;">Organic Chemistry Laboratory</div><div class="cmeta">LEC &nbsp;F 4:00P–4:59P<br>LAB &nbsp;M 1:00P–4:59P</div></div>
         <div class="cunits">2.0</div><div class="cgrade">GRD</div>
       </div>
       <div class="crow">
         <div class="ccode"><a href="#">ESPM C105</a></div>
-        <div><div style="font-size:12.5px;color:#212121;">Natural History Museums and…</div><div class="cmeta">LEC &nbsp;TuTh 3:30P–4:59P</div></div>
+        <div><div style="font-size:12.5px;color:#1673AC;">Natural History Museums and…</div><div class="cmeta">LEC &nbsp;TuTh 3:30P–4:59P</div></div>
         <div class="cunits">3.0</div><div class="cgrade">GRD</div>
       </div>
       <div class="crow">
         <div class="ccode"><a href="#">MCELLBI 135A</a></div>
-        <div><div style="font-size:12.5px;color:#212121;">Topics in Cell and…</div><div class="cmeta">LEC &nbsp;MWF 9:00A–9:59A<br>DIS &nbsp;W 1:00P–1:59P</div></div>
+        <div><div style="font-size:12.5px;color:#1673AC;">Topics in Cell and…</div><div class="cmeta">LEC &nbsp;MWF 9:00A–9:59A<br>DIS &nbsp;W 1:00P–1:59P</div></div>
         <div class="cunits">3.0</div><div class="cgrade">GRD</div>
       </div>
       <div class="enrollsum">My Enrolled Units: <strong>12</strong> &nbsp;&nbsp; My Waitlisted Units: <strong>0</strong></div>
@@ -186,12 +186,12 @@ a:hover{text-decoration:underline;}
       </div>
       <div class="crow">
         <div class="ccode"><a href="#">ASAMST<br>20AC (Session A)</a></div>
-        <div><div style="font-size:12.5px;color:#212121;">Asian American Communities…</div><div class="cmeta">LEC &nbsp;Su 12:00A–12:01A<br>DIS &nbsp;Sa 12:00A–12:01A</div></div>
+        <div><div style="font-size:12.5px;color:#1673AC;">Asian American Communities…</div><div class="cmeta">LEC &nbsp;Su 12:00A–12:01A<br>DIS &nbsp;Sa 12:00A–12:01A</div></div>
         <div class="cunits">4.0</div><div class="cgrade">GRD</div>
       </div>
       <div class="crow">
         <div class="ccode"><a href="#">COLWRIT<br>N132 (Session P)</a></div>
-        <div><div style="font-size:12.5px;color:#212121;">The Craft of Short Fiction</div></div>
+        <div><div style="font-size:12.5px;color:#1673AC;">The Craft of Short Fiction</div></div>
         <div class="cunits">2.0</div><div class="cgrade">GRD</div>
       </div>
     </div>

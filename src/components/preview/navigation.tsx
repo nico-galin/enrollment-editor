@@ -31,7 +31,7 @@ export const Navigation = () => {
   const [activeTab, _setActiveTab] = useState('academics');
 
   return (
-    <div className='bg-[#2C5E7E] flex w-full py-1.5 px-2'>
+    <div className='bg-[#2C5E7E] flex w-full py-1.5 px-2 gap-2'>
       {NAV_ITEMS.map((item) => {
         const isActive = item.value === activeTab;
 
@@ -39,7 +39,7 @@ export const Navigation = () => {
           <div
             key={item.value}
             className={[
-              'text-[12.5px] text-white px-[12px] h-[30px] flex items-center rounded-sm gap-1',
+              'text-[13.5px] text-white px-1 h-[30px] flex items-center rounded-sm gap-1 tracking-[0.3px] pr-2',
               isActive ? 'font-bold bg-[#5E7C96]' : undefined,
             ].join(' ')}
           >

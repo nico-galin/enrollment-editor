@@ -8,14 +8,14 @@ function CourseRow({ course }: { course: Course }) {
       <div>
         <a
           href='#'
-          className='text-[#1971c2] text-[12.5px] leading-[1.5] whitespace-pre-wrap font-bold'
+          className='text-[#205C83] text-[12.5px] leading-[1.5] whitespace-pre-wrap font-bold'
         >
           {course.code}
         </a>
       </div>
       <div>
-        <div className='text-[14px] text-[#212121]'>{course.title}</div>
-        <div className='text-[#555] text-[14px] leading-[1.55]'>
+        <div className='text-[14px]'>{course.title}</div>
+        <div className='text-[#555] text-[14px] leading-[1.55] font-medium'>
           {course.sections.map((s, i) => (
             <span key={i}>
               {i > 0 && <br />}
@@ -24,8 +24,12 @@ function CourseRow({ course }: { course: Course }) {
           ))}
         </div>
       </div>
-      <div className='text-right text-[12.5px]'>{course.units}</div>
-      <div className='text-right text-[14px] text-[#555]'>{course.grade}</div>
+      <div className='text-right text-[12.5px] font-semibold'>
+        {course.units}
+      </div>
+      <div className='text-right text-[14px] text-[#555] font-medium'>
+        {course.grade}
+      </div>
     </div>
   );
 }
@@ -45,12 +49,13 @@ function SemesterSection({
   return (
     <div>
       <div className='flex items-center justify-between mt-[14px] mb-[8px]'>
-        <span className='text-[14.5px] font-bold text-[#1971c2]'>
-          <a href='#' className='text-[#1971c2] text-[14.5px] font-bold'>
-            {semester.label} <ArrowRight size={16} className='inline' />
+        <span className='text-[14.5px] font-bold text-[#205C83]'>
+          <a href='#' className='text-[#205C83] text-[14.5px] font-bold'>
+            {semester.label}{' '}
+            <ArrowRight size={16} className='inline' strokeWidth={4} />
           </a>
         </span>
-        <a href='#' className='text-[12px] text-[#1971c2]'>
+        <a href='#' className='text-[12px] text-[#205C83] font-bold'>
           Textbooks
         </a>
       </div>
@@ -75,8 +80,9 @@ export function PreviewSemesters({ semesters }: { semesters: Semester[] }) {
     <Pane>
       <Pane.Header className='flex flex-row justify-between items-center'>
         Semesters
-        <a href='#' className='font-bold text-[14px] text-[#1971c2] ml-auto'>
-          View Academic Summary <ArrowRight size={15} className='inline' />
+        <a href='#' className='font-bold text-[14px] text-[#205C83] ml-auto'>
+          View Academic Summary{' '}
+          <ArrowRight size={15} className='inline' strokeWidth={4} />
         </a>
       </Pane.Header>
       <Pane.Content>
