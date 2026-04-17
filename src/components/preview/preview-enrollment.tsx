@@ -12,7 +12,7 @@ const HELP_LINKS = [
 
 export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 flex-1 min-w-0'>
       <Pane>
         <Pane.Header>
           Class Enrollment

@@ -26,7 +26,7 @@ export default function Preview({
       <div className='pt-[14px] px-4 pb-4 text-xl font-medium text-[#1673AC] bg-[#f4f4f4]'>
         My Academics
       </div>
-      <div className='flex px-4 pb-5 bg-[#f4f4f4] gap-4'>
+      <div className='flex items-start px-4 pb-5 bg-[#f4f4f4] gap-4'>
         <PreviewAcademicProfile student={student} />
         <PreviewSemesters semesters={semesters} />
         <PreviewEnrollment enrollment={enrollment} />

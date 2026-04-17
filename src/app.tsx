@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import type { RefObject } from 'react';
 import * as htmlToImage from 'html-to-image';
 import ConfigurationPane from './components/config-pane';
@@ -49,8 +49,11 @@ function Toolbar({
   };
 
   return (
-    <div className='flex items-center gap-2'>
-      <div className='ml-auto flex items-center gap-2'>
+    <div className='flex items-center gap-2 p-2 pr-3'>
+      <h1 className='text-sm font-semibold mr-auto'>
+        Enrollment Configuration
+      </h1>
+      <div className='flex items-center gap-2'>
         <Button
           variant='outline'
           size='sm'
@@ -98,9 +101,23 @@ function loadPersistedData(): AppData {
   return defaultData;
 }
 
+const PREVIEW_WIDTH = 1395;
+
 function App() {
   const [data, setData] = useState<AppData>(loadPersistedData);
   const previewRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [previewScale, setPreviewScale] = useState(1);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setPreviewScale(entry.contentRect.width / PREVIEW_WIDTH);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleChange = (newData: AppData) => {
     setData(newData);
@@ -117,17 +134,24 @@ function App() {
   };
 
   return (
-    <div className='flex h-screen w-screen overflow-hidden bg-muted/40'>
-      <ConfigurationPane
-        data={data}
-        onChange={handleChange}
-        onReset={handleReset}
-      />
-      <div className='flex flex-col flex-1 min-w-0 gap-2 pr-2 pb-2 pt-2'>
-        <Toolbar previewRef={previewRef} />
-        <div className='flex-1 rounded-xl border border-gray-200 overflow-y-auto overflow-x-hidden w-full max-w-[1400px]'>
-          <Preview data={data} ref={previewRef} />
+    <div className='flex flex-col h-screen w-screen overflow-hidden bg-muted/40'>
+      <Toolbar previewRef={previewRef} />
+      <div className='flex flex-col md:flex-row flex-1 min-h-0'>
+        <div className='flex flex-col md:flex-1 min-w-0 gap-2 md:pr-2 pb-2 order-first md:order-last overflow-hidden max-sm:mx-2'>
+          <div
+            ref={containerRef}
+            className='rounded-xl border border-gray-200 overflow-x-hidden w-full'
+          >
+            <div style={{ zoom: previewScale, width: `${PREVIEW_WIDTH}px` }}>
+              <Preview data={data} ref={previewRef} />
+            </div>
+          </div>
         </div>
+        <ConfigurationPane
+          data={data}
+          onChange={handleChange}
+          onReset={handleReset}
+        />
       </div>
     </div>
   );

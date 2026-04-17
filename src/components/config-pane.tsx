@@ -130,37 +130,66 @@ function Grid({ cols, children }: { cols: 2 | 3; children: ReactNode }) {
 }
 
 function SectionLabel({ children }: { children: ReactNode }) {
-  return <span className='text-[11px] font-medium text-muted-foreground uppercase tracking-wide'>{children}</span>;
+  return (
+    <span className='text-[11px] font-medium text-muted-foreground uppercase tracking-wide'>
+      {children}
+    </span>
+  );
 }
 
-interface AddButtonProps { label: string; onClick: () => void; fullWidth?: boolean; }
+interface AddButtonProps {
+  label: string;
+  onClick: () => void;
+  fullWidth?: boolean;
+}
 
 function AddButton({ label, onClick, fullWidth = false }: AddButtonProps) {
   return (
-    <Button variant='outline' size='sm'
+    <Button
+      variant='outline'
+      size='sm'
       className={fullWidth ? 'w-full h-7 text-xs' : 'h-6 text-xs px-2'}
-      onClick={onClick}>
-      <Plus className='h-3 w-3 mr-1' />{label}
+      onClick={onClick}
+    >
+      <Plus className='h-3 w-3 mr-1' />
+      {label}
     </Button>
   );
 }
 
-interface DeleteButtonProps { onClick: () => void; size?: 'md' | 'sm'; }
+interface DeleteButtonProps {
+  onClick: () => void;
+  size?: 'md' | 'sm';
+}
 
 function DeleteButton({ onClick, size = 'md' }: DeleteButtonProps) {
   return (
-    <Button variant='ghost' size='icon'
-      className={size === 'sm' ? 'h-4 w-4 text-muted-foreground hover:text-destructive'
-                               : 'h-5 w-5 shrink-0 text-muted-foreground hover:text-destructive'}
-      onClick={onClick}>
+    <Button
+      variant='ghost'
+      size='icon'
+      className={
+        size === 'sm'
+          ? 'h-4 w-4 text-muted-foreground hover:text-destructive'
+          : 'h-5 w-5 shrink-0 text-muted-foreground hover:text-destructive'
+      }
+      onClick={onClick}
+    >
       <Trash2 className={size === 'sm' ? 'h-2.5 w-2.5' : 'h-3 w-3'} />
     </Button>
   );
 }
 
-interface FieldArrayHeaderProps { label: string; onAdd: () => void; addLabel?: string; }
+interface FieldArrayHeaderProps {
+  label: string;
+  onAdd: () => void;
+  addLabel?: string;
+}
 
-function FieldArrayHeader({ label, onAdd, addLabel = 'Add' }: FieldArrayHeaderProps) {
+function FieldArrayHeader({
+  label,
+  onAdd,
+  addLabel = 'Add',
+}: FieldArrayHeaderProps) {
   return (
     <div className='flex items-center justify-between pt-1'>
       <SectionLabel>{label}</SectionLabel>
@@ -309,7 +338,9 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
 
       <FieldArrayHeader
         label='Sections'
-        onAdd={() => appendSection({ type: 'LEC', days: 'MWF', time: '10:00A–10:59A' })}
+        onAdd={() =>
+          appendSection({ type: 'LEC', days: 'MWF', time: '10:00A–10:59A' })
+        }
       />
 
       <div className='space-y-1.5'>
@@ -460,11 +491,7 @@ export default function ConfigurationPane({
 
   return (
     <FormProvider {...form}>
-      <div className='px-4 flex flex-col w-[320px] shrink-0 h-screen'>
-        <div className='py-3'>
-          <h1 className='text-sm font-semibold'>Enrollment Configuration</h1>
-        </div>
-
+      <div className='px-4 flex flex-col w-full md:w-[320px] shrink-0 flex-1 md:flex-none overflow-y-auto md:h-full'>
         <Tabs defaultValue='student' className='flex flex-col flex-1 min-h-0'>
           <TabsList className='w-auto shrink-0'>
             <TabsTrigger value='student' className='text-xs'>
