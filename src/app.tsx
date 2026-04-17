@@ -140,7 +140,7 @@ function App() {
         <div className='flex flex-col md:flex-1 min-w-0 gap-2 md:pr-2 pb-2 order-first md:order-last overflow-hidden max-sm:mx-2'>
           <div
             ref={containerRef}
-            className='rounded-xl border border-gray-200 overflow-x-hidden w-full'
+            className='rounded-xl border border-gray-200 overflow-x-hidden w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
           >
             <div style={{ zoom: previewScale, width: `${PREVIEW_WIDTH}px` }}>
               <Preview data={data} ref={previewRef} />
