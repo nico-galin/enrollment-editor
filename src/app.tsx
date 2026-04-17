@@ -95,7 +95,7 @@ function App() {
       <ConfigurationPane data={data} onChange={setData} />
       <div className='flex flex-col flex-1 min-w-0 gap-2 pr-2 pb-2 pt-2'>
         <Toolbar previewRef={previewRef} />
-        <div className='flex-1 rounded-xl border border-gray-200 overflow-y-auto overflow-x-hidden w-full'>
+        <div className='flex-1 rounded-xl border border-gray-200 overflow-y-auto overflow-x-hidden w-full max-w-[1400px]'>
           <Preview data={data} ref={previewRef} />
         </div>
       </div>

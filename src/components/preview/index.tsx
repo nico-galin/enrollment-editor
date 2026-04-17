@@ -21,7 +21,7 @@ export default function Preview({
       <PreviewTopbar student={student} />
       <Navigation />
       <PreviewAlertBar />
-      <div className='pt-[14px] px-4 pb-[6px] text-xl font-normal text-[#212121] bg-[#f4f4f4]'>
+      <div className='pt-[14px] px-4 pb-4 text-xl font-medium text-[#212121] bg-[#f4f4f4]'>
         My Academics
       </div>
       <div className='flex px-4 pb-5 bg-[#f4f4f4] gap-4'>

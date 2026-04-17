@@ -40,7 +40,7 @@ export const DeadlineSchema = z.object({
 
 export const StudentSchema = z.object({
   name: nonEmpty,
-  initial: z.string().min(1, 'Required').max(2, 'Max 2 chars'),
+  photo: z.string().optional(),
   major: z.string(),
   majorDegree: z.string(),
   career: z.string(),

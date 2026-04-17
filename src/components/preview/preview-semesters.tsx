@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import type { Course, Semester } from '../../default-data';
 import Pane from '../pane';
 
@@ -7,14 +8,14 @@ function CourseRow({ course }: { course: Course }) {
       <div>
         <a
           href='#'
-          className='text-[#1971c2] text-[12.5px] leading-[1.5] whitespace-pre-wrap'
+          className='text-[#1971c2] text-[12.5px] leading-[1.5] whitespace-pre-wrap font-bold'
         >
           {course.code}
         </a>
       </div>
       <div>
-        <div className='text-[12.5px] text-[#212121]'>{course.title}</div>
-        <div className='text-[#555] text-[11.5px] leading-[1.55]'>
+        <div className='text-[14px] text-[#212121]'>{course.title}</div>
+        <div className='text-[#555] text-[14px] leading-[1.55]'>
           {course.sections.map((s, i) => (
             <span key={i}>
               {i > 0 && <br />}
@@ -24,7 +25,7 @@ function CourseRow({ course }: { course: Course }) {
         </div>
       </div>
       <div className='text-right text-[12.5px]'>{course.units}</div>
-      <div className='text-right text-[12.5px] text-[#555]'>{course.grade}</div>
+      <div className='text-right text-[14px] text-[#555]'>{course.grade}</div>
     </div>
   );
 }
@@ -46,7 +47,7 @@ function SemesterSection({
       <div className='flex items-center justify-between mt-[14px] mb-[8px]'>
         <span className='text-[14.5px] font-bold text-[#1971c2]'>
           <a href='#' className='text-[#1971c2] text-[14.5px] font-bold'>
-            {semester.label} →
+            {semester.label} <ArrowRight size={16} className='inline' />
           </a>
         </span>
         <a href='#' className='text-[12px] text-[#1971c2]'>
@@ -59,8 +60,9 @@ function SemesterSection({
       ))}
 
       {showEnrolledUnits && (
-        <div className='text-right text-[12px] text-[#555] mt-2 pt-2 border-t border-[#e5e5e5]'>
+        <div className='text-right text-[13px] text-[#555] mt-2'>
           My Enrolled Units: <strong>{enrolledUnits}</strong>
+          <br />
           &nbsp;&nbsp; My Waitlisted Units: <strong>0</strong>
         </div>
       )}
@@ -71,10 +73,10 @@ function SemesterSection({
 export function PreviewSemesters({ semesters }: { semesters: Semester[] }) {
   return (
     <Pane>
-      <Pane.Header className='flex-row justify-between'>
+      <Pane.Header className='flex flex-row justify-between items-center'>
         Semesters
-        <a href='#' className='font-bold text-[12.5px] text-[#1971c2] ml-auto'>
-          View Academic Summary →
+        <a href='#' className='font-bold text-[14px] text-[#1971c2] ml-auto'>
+          View Academic Summary <ArrowRight size={15} className='inline' />
         </a>
       </Pane.Header>
       <Pane.Content>

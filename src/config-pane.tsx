@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react';
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Path } from 'react-hook-form';
 import {
   Controller,
@@ -56,6 +56,71 @@ function Field({ name, label, className }: FieldProps) {
         </div>
       )}
     />
+  );
+}
+
+// ---------------------------------------------------------------------------
+// PhotoUpload
+// ---------------------------------------------------------------------------
+
+function PhotoUpload() {
+  const { control, setValue, watch } = useFormContext<AppData>();
+  const photo = watch('student.photo');
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () =>
+      setValue('student.photo', reader.result as string, { shouldDirty: true });
+    reader.readAsDataURL(file);
+  }
+
+  return (
+    <div className='flex items-center gap-3'>
+      <div
+        className='w-12 h-12 rounded-full bg-muted border flex items-center justify-center overflow-hidden shrink-0 cursor-pointer'
+        onClick={() => fileRef.current?.click()}
+      >
+        {photo ? (
+          <img src={photo} className='w-full h-full object-cover' />
+        ) : (
+          <span className='text-[10px] text-muted-foreground text-center leading-tight px-1'>
+            No photo
+          </span>
+        )}
+      </div>
+      <div className='flex flex-col gap-1'>
+        <Button
+          variant='outline'
+          size='sm'
+          className='h-7 text-xs'
+          onClick={() => fileRef.current?.click()}
+        >
+          Upload photo
+        </Button>
+        {photo && (
+          <Button
+            variant='ghost'
+            size='sm'
+            className='h-6 text-[10px] text-muted-foreground px-2'
+            onClick={() =>
+              setValue('student.photo', undefined, { shouldDirty: true })
+            }
+          >
+            Remove
+          </Button>
+        )}
+      </div>
+      <input
+        ref={fileRef}
+        type='file'
+        accept='image/*'
+        className='hidden'
+        onChange={handleFile}
+      />
+    </div>
   );
 }
 
@@ -423,13 +488,13 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
             <ScrollArea className='h-full'>
               <div className='space-y-1'>
                 <CollapsibleGroup title='Identity'>
+                  <PhotoUpload />
                   <Grid2>
                     <Field
                       name='student.name'
                       label='Full Name'
                       className='col-span-2'
                     />
-                    <Field name='student.initial' label='Avatar Initial' />
                     <Field name='student.career' label='Career' />
                   </Grid2>
                   <Grid2>
