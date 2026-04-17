@@ -190,7 +190,7 @@ export default function ConfigurationPane({
 
   return (
     <FormProvider {...form}>
-      <div className='px-4 flex flex-col w-full md:w-[320px] shrink-0 flex-1 md:flex-none overflow-y-auto md:h-full'>
+      <div className='px-4 flex flex-col w-full md:w-[380px] shrink-0 flex-1 md:flex-none overflow-y-auto md:h-full'>
         <Tabs defaultValue='student' className='flex flex-col flex-1 min-h-0'>
           <TabsList className='w-auto shrink-0'>
             <TabsTrigger value='student' className='text-xs'>

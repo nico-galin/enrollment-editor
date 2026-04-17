@@ -1,6 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useCallback, useState } from 'react';
@@ -16,15 +23,17 @@ interface FieldProps {
   name: Path<AppData>;
   label: string;
   className?: string;
+  type?: string;
 }
 
-export function Field({ name, label, className }: FieldProps) {
+export function Field({ name, label, className, type }: FieldProps) {
   const { control } = useFormContext<AppData>();
   const { field, fieldState } = useController({ control, name });
   return (
     <div className={`space-y-1 ${className ?? ''}`}>
       <Label className='text-xs text-muted-foreground'>{label}</Label>
       <Input
+        type={type}
         className={`h-8 text-xs${fieldState.error ? ' border-destructive' : ''}`}
         {...field}
       />
@@ -33,6 +42,39 @@ export function Field({ name, label, className }: FieldProps) {
           {fieldState.error.message}
         </p>
       )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SelectField
+// ---------------------------------------------------------------------------
+
+interface SelectFieldProps {
+  name: Path<AppData>;
+  label: string;
+  options: string[];
+  className?: string;
+}
+
+export function SelectField({ name, label, options, className }: SelectFieldProps) {
+  const { control } = useFormContext<AppData>();
+  const { field } = useController({ control, name });
+  return (
+    <div className={`space-y-1 ${className ?? ''}`}>
+      <Label className='text-xs text-muted-foreground'>{label}</Label>
+      <Select value={String(field.value)} onValueChange={field.onChange}>
+        <SelectTrigger className='h-8 text-xs'>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((opt) => (
+            <SelectItem key={opt} value={opt} className='text-xs'>
+              {opt}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

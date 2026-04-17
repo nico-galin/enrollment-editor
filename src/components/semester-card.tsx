@@ -7,7 +7,13 @@ import {
   Field,
   FieldArrayHeader,
   Grid,
+  SelectField,
 } from './config-components';
+
+const GRADE_OPTIONS = ['GRD', 'PNP'];
+
+const SECTION_TYPES = ['LEC', 'LAB', 'DIS'];
+const SECTION_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'MWF', 'TuTh', 'WeFr', 'MoWe', 'Sa', 'Su'];
 
 // ---------------------------------------------------------------------------
 // CourseCard — owns the sections field array
@@ -57,19 +63,21 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
             `semesters.${semIndex}.courses.${courseIndex}.units` as Path<AppData>
           }
           label='Units'
+          type='number'
         />
-        <Field
+        <SelectField
           name={
             `semesters.${semIndex}.courses.${courseIndex}.grade` as Path<AppData>
           }
           label='Grade'
+          options={GRADE_OPTIONS}
         />
       </Grid>
 
       <FieldArrayHeader
         label='Sections'
         onAdd={() =>
-          appendSection({ type: 'LEC', days: 'MWF', time: '10:00A–10:59A' })
+          appendSection({ type: 'LEC', days: 'MWF', startTime: '10:00A', endTime: '10:59A' })
         }
       />
 
@@ -82,24 +90,32 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
               </span>
               <DeleteButton size='sm' onClick={() => removeSection(xi)} />
             </div>
-            <Grid cols={3}>
-              <Field
+            <Grid cols={2}>
+              <SelectField
                 name={
                   `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.type` as Path<AppData>
                 }
                 label='Type'
+                options={SECTION_TYPES}
               />
-              <Field
+              <SelectField
                 name={
                   `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.days` as Path<AppData>
                 }
                 label='Days'
+                options={SECTION_DAYS}
               />
               <Field
                 name={
-                  `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.time` as Path<AppData>
+                  `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.startTime` as Path<AppData>
                 }
-                label='Time'
+                label='Start Time'
+              />
+              <Field
+                name={
+                  `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.endTime` as Path<AppData>
+                }
+                label='End Time'
               />
             </Grid>
           </div>

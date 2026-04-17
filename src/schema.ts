@@ -6,7 +6,8 @@ const numericStr = z.string().regex(/^\d+(\.\d+)?$/, 'Must be a number');
 export const SectionSchema = z.object({
   type: nonEmpty,
   days: nonEmpty,
-  time: nonEmpty,
+  startTime: nonEmpty,
+  endTime: nonEmpty,
 });
 
 export const CourseSchema = z.object({

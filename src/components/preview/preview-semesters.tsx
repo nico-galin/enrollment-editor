@@ -20,7 +20,7 @@ function CourseRow({ course }: { course: Course }) {
           {course.sections.map((s, i) => (
             <span key={i}>
               {i > 0 && <br />}
-              {s.type}&nbsp;&nbsp;{s.days} {s.time}
+              {s.type}&nbsp;&nbsp;{s.days} {s.startTime}–{s.endTime}
             </span>
           ))}
         </div>
