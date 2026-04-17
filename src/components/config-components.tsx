@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, GripVertical, Plus, Trash2 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useCallback, useState } from 'react';
 import type { Path } from 'react-hook-form';
@@ -169,6 +169,7 @@ interface CardProps {
   defaultOpen?: boolean;
   onTitleChange?: (value: string) => void;
   defaultEditingTitle?: boolean;
+  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
 export function Card({
@@ -178,6 +179,7 @@ export function Card({
   defaultOpen = true,
   onTitleChange,
   defaultEditingTitle = false,
+  dragHandleProps,
 }: CardProps) {
   const [open, setOpen] = useState(defaultOpen);
   const [editingTitle, setEditingTitle] = useState(defaultEditingTitle);
@@ -214,6 +216,14 @@ export function Card({
   return (
     <div className='rounded-md shadow-sm bg-card'>
       <div className='flex items-center justify-between px-3 py-1.5'>
+        {dragHandleProps && (
+          <div
+            {...dragHandleProps}
+            className='cursor-grab text-muted-foreground/50 hover:text-muted-foreground active:cursor-grabbing shrink-0 mr-1'
+          >
+            <GripVertical className='h-3.5 w-3.5' />
+          </div>
+        )}
         {onTitleChange ? (
           <div className='flex items-center gap-1 flex-1 min-w-0'>
             <button className='shrink-0' onClick={() => setOpen((o) => !o)}>

@@ -3,7 +3,8 @@
     "allow": [
       "Bash(grep:*)",
       "Bash(npm run build:*)",
-      "Skill(shadcn)"
+      "Skill(shadcn)",
+      "Bash(node:*)"
     ]
   }
 }

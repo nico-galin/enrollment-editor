@@ -110,7 +110,19 @@ const STORAGE_KEY = 'schedule-gen-data';
 function loadPersistedData(): AppData {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored) as AppData;
+    if (stored) {
+      const parsed = JSON.parse(stored) as AppData;
+      // Migrate: fill in startTime/endTime for sections added before this field existed
+      for (const sem of parsed.semesters ?? []) {
+        for (const course of sem.courses ?? []) {
+          for (const section of course.sections ?? []) {
+            if (!section.startTime) section.startTime = '12:00P';
+            if (!section.endTime) section.endTime = '12:59P';
+          }
+        }
+      }
+      return parsed;
+    }
   } catch {
     // ignore parse errors
   }

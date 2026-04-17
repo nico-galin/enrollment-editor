@@ -174,7 +174,11 @@ export default function ConfigurationPane({
     fields: semesters,
     append: appendSemester,
     remove: removeSemester,
+    move: moveSemester,
   } = useFieldArray({ control, name: 'semesters' });
+
+  const dragSemId = useRef<string | null>(null);
+  const [dragOverSemId, setDragOverSemId] = useState<string | null>(null);
 
   const {
     fields: phases,
@@ -265,13 +269,30 @@ export default function ConfigurationPane({
             <ScrollArea className='h-full [&_[data-slot=scroll-area-scrollbar]]:hidden'>
               <div className='space-y-2'>
                 {semesters.map((sem, si) => (
-                  <SemesterCard
+                  <div
                     key={sem.id}
-                    semIndex={si}
-                    canRemove={semesters.length > 1}
-                    onRemove={() => removeSemester(si)}
-                    defaultEditingTitle={sem.id === newSemId}
-                  />
+                    draggable
+                    onDragStart={() => { dragSemId.current = sem.id; }}
+                    onDragOver={(e) => { e.preventDefault(); if (sem.id !== dragSemId.current) setDragOverSemId(sem.id); }}
+                    onDrop={() => {
+                      const fromId = dragSemId.current;
+                      if (!fromId || fromId === sem.id) { setDragOverSemId(null); return; }
+                      const fromIndex = semesters.findIndex((s) => s.id === fromId);
+                      moveSemester(fromIndex, si);
+                      dragSemId.current = null;
+                      setDragOverSemId(null);
+                    }}
+                    onDragEnd={() => { dragSemId.current = null; setDragOverSemId(null); }}
+                    className={dragOverSemId === sem.id ? 'opacity-50' : undefined}
+                  >
+                    <SemesterCard
+                      semIndex={si}
+                      canRemove={semesters.length > 1}
+                      onRemove={() => removeSemester(si)}
+                      defaultEditingTitle={sem.id === newSemId}
+                      dragHandleProps={{ onMouseDown: (e) => e.stopPropagation() }}
+                    />
+                  </div>
                 ))}
                 <AddButton
                   label='Add Semester'

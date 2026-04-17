@@ -134,6 +134,7 @@ export interface SemesterCardProps {
   canRemove: boolean;
   onRemove: () => void;
   defaultEditingTitle?: boolean;
+  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
 export function SemesterCard({
@@ -141,6 +142,7 @@ export function SemesterCard({
   canRemove,
   onRemove,
   defaultEditingTitle = false,
+  dragHandleProps,
 }: SemesterCardProps) {
   const { control, watch, setValue } = useFormContext<AppData>();
   const coursesName =
@@ -163,6 +165,7 @@ export function SemesterCard({
         })
       }
       defaultEditingTitle={defaultEditingTitle}
+      dragHandleProps={dragHandleProps}
     >
       <FieldArrayHeader
         label={`Courses (${courses.length})`}
