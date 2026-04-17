@@ -5,7 +5,7 @@ import ConfigurationPane from './components/config-pane';
 import Preview from './components/preview';
 import { defaultData, type AppData } from './constants/default-data';
 import { Button } from '@/components/ui/button';
-import { Download, Copy, Check, Loader2 } from 'lucide-react';
+import { Download, Copy, Check, Loader2, Share2 } from 'lucide-react';
 
 function Toolbar({
   previewRef,
@@ -18,16 +18,31 @@ function Toolbar({
 
   const captureOptions = { pixelRatio: 2, width: PREVIEW_WIDTH, height: PREVIEW_HEIGHT };
 
-  const capture = () => htmlToImage.toPng(previewRef.current!, captureOptions);
+  const captureBlob = () => htmlToImage.toBlob(previewRef.current!, captureOptions);
+
+  const canShare = typeof navigator.share === 'function';
+
+  const handleShare = async () => {
+    setCopying(true);
+    try {
+      const blob = await captureBlob();
+      const file = new File([blob!], 'calcentral-academics.png', { type: 'image/png' });
+      await navigator.share({ files: [file] });
+    } finally {
+      setCopying(false);
+    }
+  };
 
   const handleDownload = async () => {
     setDownloading(true);
     try {
-      const dataUrl = await capture();
+      const blob = await captureBlob();
+      const url = URL.createObjectURL(blob!);
       const a = document.createElement('a');
-      a.href = dataUrl;
+      a.href = url;
       a.download = 'calcentral-academics.png';
       a.click();
+      URL.revokeObjectURL(url);
     } finally {
       setDownloading(false);
     }
@@ -36,7 +51,7 @@ function Toolbar({
   const handleCopy = async () => {
     setCopying(true);
     try {
-      const blob = await htmlToImage.toBlob(previewRef.current!, captureOptions);
+      const blob = await captureBlob();
       await navigator.clipboard.write([
         new ClipboardItem({ 'image/png': blob! }),
       ]);
@@ -57,17 +72,19 @@ function Toolbar({
           variant='outline'
           size='sm'
           className='h-7 text-xs gap-1.5'
-          onClick={handleCopy}
+          onClick={canShare ? handleShare : handleCopy}
           disabled={copying}
         >
           {copying ? (
             <Loader2 className='h-3.5 w-3.5 animate-spin' />
           ) : copied ? (
             <Check className='h-3.5 w-3.5 text-green-600' />
+          ) : canShare ? (
+            <Share2 className='h-3.5 w-3.5' />
           ) : (
             <Copy className='h-3.5 w-3.5' />
           )}
-          {copied ? 'Copied!' : 'Copy Image'}
+          {copied ? 'Copied!' : canShare ? 'Share' : 'Copy Image'}
         </Button>
         <Button
           variant='outline'
