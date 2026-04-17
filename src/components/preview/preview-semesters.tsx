@@ -13,8 +13,8 @@ function CourseRow({ course }: { course: Course }) {
           {course.code}
         </a>
       </div>
-      <div>
-        <div className='text-[14px]'>{course.title}</div>
+      <div className='min-w-0'>
+        <div className='text-[14px] truncate'>{course.title}</div>
         <div className='text-[#555] text-[14px] leading-[1.55] font-medium'>
           {course.sections.map((s, i) => (
             <span key={i}>
@@ -48,14 +48,14 @@ function SemesterSection({
 
   return (
     <div>
-      <div className='flex items-center justify-between mt-[14px] mb-[8px]'>
+      <div className='flex items-center justify-between mt-[14px] mb-7'>
         <span className='text-[14.5px] font-bold text-[#205C83]'>
           <a href='#' className='text-[#205C83] text-[14.5px] font-bold'>
             {semester.label}{' '}
             <ArrowRight size={16} className='inline' strokeWidth={4} />
           </a>
         </span>
-        <a href='#' className='text-[12px] text-[#205C83] font-bold'>
+        <a href='#' className='text-sm text-[#205C83]'>
           Textbooks
         </a>
       </div>

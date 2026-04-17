@@ -20,9 +20,9 @@ export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
             UNDERGRADUATE
           </span>
         </Pane.Header>
-        <Pane.Content>
+        <Pane.Content className='pt-0'>
           {/* Semester tabs */}
-          <div className='flex border-b border-[#ccc] mb-[10px]'>
+          <div className='flex border-b border-[#ccc] mb-4'>
             {['Fall 2026', 'Summer 2026', enrollment.semester].map((tab) => {
               const active = tab === enrollment.semester;
               return (
@@ -42,9 +42,9 @@ export function PreviewEnrollment({ enrollment }: { enrollment: Enrollment }) {
           </div>
 
           {/* Enrollment dates */}
-          <div className='flex text-[14px] font-bold text-[#1673AC] mb-[7px]'>
+          <div className='flex text-[14px] font-bold mb-[7px]'>
             {enrollment.semester} Dates
-            <span className='ml-1 mr-2 text-[12px] font-normal text-[#555]'>
+            <span className='ml-1 mr-2 font-normal text-[#555]'>
               (Pacific Time)
             </span>
             <img src={infoImg} width={16} />
