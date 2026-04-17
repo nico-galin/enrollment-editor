@@ -13,22 +13,25 @@ export function PreviewTopbar({ student }: { student: Student }) {
       <div className='ml-auto flex items-center text-white text-[14px] gap-4'>
         <span className='flex items-center gap-1'>
           <img src={gmailIcon} width={32} />
-          6854
+          {Math.round(Math.random() * 500)}
         </span>
         <span className='flex items-center gap-1'>
           <img src={calendarIcon} width={32} />
-          31
+          {Math.round(Math.random() * 50)}
         </span>
         <img src={driveIcon} width={36} />
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 bg-[#516685] p-1 px-2 rounded-md'>
           <div className='w-7 h-7 rounded-full bg-[#8bc34a] flex items-center justify-center text-white text-[11px] font-bold overflow-hidden'>
             {student.photo ? (
-              <img src={student.photo} className='w-full h-full object-cover' />
+              <img
+                src={student.photo}
+                className='w-full h-full object-cover border-1'
+              />
             ) : (
               student.name.charAt(0)
             )}
           </div>
-          <span className='text-[#cfd8dc] text-[12px]'>
+          <span className='text-[#cfd8dc] text-[12px] font-bold'>
             {student.name.split(' ')[0]}
           </span>
         </div>
