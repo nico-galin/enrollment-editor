@@ -254,7 +254,7 @@ interface CardProps {
 function Card({ title, onRemove, children, defaultOpen = true }: CardProps) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className='rounded-md border bg-muted/30'>
+    <div className='rounded-md shadow-sm bg-card'>
       <div className='flex items-center justify-between px-3 py-1.5'>
         <button
           className='flex items-center gap-1 text-left flex-1 min-w-0'
@@ -270,7 +270,7 @@ function Card({ title, onRemove, children, defaultOpen = true }: CardProps) {
         {onRemove && <DeleteButton onClick={onRemove} />}
       </div>
       {open && (
-        <div className='px-3 pb-3 space-y-2 border-t pt-2'>{children}</div>
+        <div className='px-3 pb-3 space-y-2 pt-2'>{children}</div>
       )}
     </div>
   );
@@ -563,7 +563,7 @@ export default function ConfigurationPane({
 
           {/* Semesters Tab */}
           <TabsContent value='semesters' className='flex-1 min-h-0'>
-            <ScrollArea className='h-full'>
+            <ScrollArea className='h-full [&_[data-slot=scroll-area-scrollbar]]:hidden'>
               <div className='space-y-2'>
                 {semesters.map((sem, si) => (
                   <SemesterCard
