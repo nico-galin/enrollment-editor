@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import * as htmlToImage from 'html-to-image';
-import ConfigurationPane from './config-pane';
+import ConfigurationPane from './components/config-pane';
 import Preview from './components/preview';
-import { defaultData, type AppData } from './default-data';
+import { defaultData, type AppData } from './constants/default-data';
 import { Button } from '@/components/ui/button';
 import { Download, Copy, Check, Loader2 } from 'lucide-react';
 
@@ -118,7 +118,11 @@ function App() {
 
   return (
     <div className='flex h-screen w-screen overflow-hidden bg-muted/40'>
-      <ConfigurationPane data={data} onChange={handleChange} onReset={handleReset} />
+      <ConfigurationPane
+        data={data}
+        onChange={handleChange}
+        onReset={handleReset}
+      />
       <div className='flex flex-col flex-1 min-w-0 gap-2 pr-2 pb-2 pt-2'>
         <Toolbar previewRef={previewRef} />
         <div className='flex-1 rounded-xl border border-gray-200 overflow-y-auto overflow-x-hidden w-full max-w-[1400px]'>

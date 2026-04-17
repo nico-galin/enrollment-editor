@@ -16,14 +16,14 @@ import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { Path } from 'react-hook-form';
 import {
-  Controller,
   FormProvider,
+  useController,
   useFieldArray,
   useForm,
   useFormContext,
 } from 'react-hook-form';
-import { defaultData, type AppData } from './default-data';
-import { AppDataSchema } from './schema';
+import { defaultData, type AppData } from '../constants/default-data';
+import { AppDataSchema } from '../schema';
 
 // ---------------------------------------------------------------------------
 // Field — reads/writes via FormProvider context
@@ -37,25 +37,20 @@ interface FieldProps {
 
 function Field({ name, label, className }: FieldProps) {
   const { control } = useFormContext<AppData>();
+  const { field, fieldState } = useController({ control, name });
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field, fieldState }) => (
-        <div className={`space-y-1 ${className ?? ''}`}>
-          <Label className='text-xs text-muted-foreground'>{label}</Label>
-          <Input
-            className={`h-7 text-xs${fieldState.error ? ' border-destructive' : ''}`}
-            {...field}
-          />
-          {fieldState.error && (
-            <p className='text-[10px] text-destructive leading-tight'>
-              {fieldState.error.message}
-            </p>
-          )}
-        </div>
+    <div className={`space-y-1 ${className ?? ''}`}>
+      <Label className='text-xs text-muted-foreground'>{label}</Label>
+      <Input
+        className={`h-8 text-xs${fieldState.error ? ' border-destructive' : ''}`}
+        {...field}
+      />
+      {fieldState.error && (
+        <p className='text-[10px] text-destructive leading-tight'>
+          {fieldState.error.message}
+        </p>
       )}
-    />
+    </div>
   );
 }
 
@@ -128,12 +123,50 @@ function PhotoUpload() {
 // Layout helpers
 // ---------------------------------------------------------------------------
 
-function Grid2({ children }: { children: ReactNode }) {
-  return <div className='grid grid-cols-2 gap-2'>{children}</div>;
+const colsClass = { 2: 'grid-cols-2', 3: 'grid-cols-3' } as const;
+
+function Grid({ cols, children }: { cols: 2 | 3; children: ReactNode }) {
+  return <div className={`grid ${colsClass[cols]} gap-2`}>{children}</div>;
 }
 
-function Grid3({ children }: { children: ReactNode }) {
-  return <div className='grid grid-cols-3 gap-2'>{children}</div>;
+function SectionLabel({ children }: { children: ReactNode }) {
+  return <span className='text-[11px] font-medium text-muted-foreground uppercase tracking-wide'>{children}</span>;
+}
+
+interface AddButtonProps { label: string; onClick: () => void; fullWidth?: boolean; }
+
+function AddButton({ label, onClick, fullWidth = false }: AddButtonProps) {
+  return (
+    <Button variant='outline' size='sm'
+      className={fullWidth ? 'w-full h-7 text-xs' : 'h-6 text-xs px-2'}
+      onClick={onClick}>
+      <Plus className='h-3 w-3 mr-1' />{label}
+    </Button>
+  );
+}
+
+interface DeleteButtonProps { onClick: () => void; size?: 'md' | 'sm'; }
+
+function DeleteButton({ onClick, size = 'md' }: DeleteButtonProps) {
+  return (
+    <Button variant='ghost' size='icon'
+      className={size === 'sm' ? 'h-4 w-4 text-muted-foreground hover:text-destructive'
+                               : 'h-5 w-5 shrink-0 text-muted-foreground hover:text-destructive'}
+      onClick={onClick}>
+      <Trash2 className={size === 'sm' ? 'h-2.5 w-2.5' : 'h-3 w-3'} />
+    </Button>
+  );
+}
+
+interface FieldArrayHeaderProps { label: string; onAdd: () => void; addLabel?: string; }
+
+function FieldArrayHeader({ label, onAdd, addLabel = 'Add' }: FieldArrayHeaderProps) {
+  return (
+    <div className='flex items-center justify-between pt-1'>
+      <SectionLabel>{label}</SectionLabel>
+      <AddButton label={addLabel} onClick={onAdd} />
+    </div>
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -205,16 +238,7 @@ function Card({ title, onRemove, children, defaultOpen = true }: CardProps) {
           )}
           <span className='text-xs font-medium truncate'>{title}</span>
         </button>
-        {onRemove && (
-          <Button
-            variant='ghost'
-            size='icon'
-            className='h-5 w-5 shrink-0 text-muted-foreground hover:text-destructive'
-            onClick={onRemove}
-          >
-            <Trash2 className='h-3 w-3' />
-          </Button>
-        )}
+        {onRemove && <DeleteButton onClick={onRemove} />}
       </div>
       {open && (
         <div className='px-3 pb-3 space-y-2 border-t pt-2'>{children}</div>
@@ -268,7 +292,7 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
         }
         label='Title'
       />
-      <Grid2>
+      <Grid cols={2}>
         <Field
           name={
             `semesters.${semIndex}.courses.${courseIndex}.units` as Path<AppData>
@@ -281,24 +305,12 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
           }
           label='Grade'
         />
-      </Grid2>
+      </Grid>
 
-      <div className='flex items-center justify-between pt-1'>
-        <span className='text-[11px] font-medium text-muted-foreground uppercase tracking-wide'>
-          Sections
-        </span>
-        <Button
-          variant='outline'
-          size='sm'
-          className='h-6 text-xs px-2'
-          onClick={() =>
-            appendSection({ type: 'LEC', days: 'MWF', time: '10:00A–10:59A' })
-          }
-        >
-          <Plus className='h-3 w-3 mr-1' />
-          Add
-        </Button>
-      </div>
+      <FieldArrayHeader
+        label='Sections'
+        onAdd={() => appendSection({ type: 'LEC', days: 'MWF', time: '10:00A–10:59A' })}
+      />
 
       <div className='space-y-1.5'>
         {sections.map((sec, xi) => (
@@ -307,16 +319,9 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
               <span className='text-[11px] font-medium text-muted-foreground'>
                 Section {xi + 1}
               </span>
-              <Button
-                variant='ghost'
-                size='icon'
-                className='h-4 w-4 text-muted-foreground hover:text-destructive'
-                onClick={() => removeSection(xi)}
-              >
-                <Trash2 className='h-2.5 w-2.5' />
-              </Button>
+              <DeleteButton size='sm' onClick={() => removeSection(xi)} />
             </div>
-            <Grid3>
+            <Grid cols={3}>
               <Field
                 name={
                   `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.type` as Path<AppData>
@@ -335,7 +340,7 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
                 }
                 label='Time'
               />
-            </Grid3>
+            </Grid>
           </div>
         ))}
       </div>
@@ -375,29 +380,20 @@ function SemesterCard({ semIndex, canRemove, onRemove }: SemesterCardProps) {
         label='Label'
       />
 
-      <div className='flex items-center justify-between pt-1'>
-        <span className='text-[11px] font-medium text-muted-foreground uppercase tracking-wide'>
-          Courses ({courses.length})
-        </span>
-        <Button
-          variant='outline'
-          size='sm'
-          className='h-6 text-xs px-2'
-          onClick={() =>
-            appendCourse({
-              id: `c_${Date.now()}`,
-              code: 'NEW 101',
-              title: 'Course Title',
-              sections: [],
-              units: '3.0',
-              grade: 'GRD',
-            })
-          }
-        >
-          <Plus className='h-3 w-3 mr-1' />
-          Add Course
-        </Button>
-      </div>
+      <FieldArrayHeader
+        label={`Courses (${courses.length})`}
+        addLabel='Add Course'
+        onAdd={() =>
+          appendCourse({
+            id: `c_${Date.now()}`,
+            code: 'NEW 101',
+            title: 'Course Title',
+            sections: [],
+            units: '3.0',
+            grade: 'GRD',
+          })
+        }
+      />
 
       <div className='space-y-2'>
         {courses.map((course, ci) => (
@@ -492,17 +488,17 @@ export default function ConfigurationPane({
           <TabsContent value='student' className='flex-1 min-h-0'>
             <ScrollArea className='h-full'>
               <div className='space-y-1'>
-                <CollapsibleGroup title='Identity'>
+                <div className='space-y-2 py-2'>
                   <PhotoUpload />
-                  <Grid2>
+                  <Grid cols={2}>
                     <Field
                       name='student.name'
                       label='Full Name'
                       className='col-span-2'
                     />
                     <Field name='student.career' label='Career' />
-                  </Grid2>
-                  <Grid2>
+                  </Grid>
+                  <Grid cols={2}>
                     <Field
                       name='student.major'
                       label='Major'
@@ -522,16 +518,16 @@ export default function ConfigurationPane({
                       name='student.termsInAttendance'
                       label='Terms in Attendance'
                     />
-                  </Grid2>
-                </CollapsibleGroup>
+                  </Grid>
+                </div>
                 <Separator />
                 <CollapsibleGroup title='Units'>
-                  <Grid2>
+                  <Grid cols={2}>
                     <Field name='student.totalUnits' label='Total' />
                     <Field name='student.transferUnits' label='Transfer' />
                     <Field name='student.pnpTotal' label='P/NP Total' />
                     <Field name='student.pnpPassed' label='P/NP Passed' />
-                  </Grid2>
+                  </Grid>
                 </CollapsibleGroup>
                 <div className='h-4' />
               </div>
@@ -550,10 +546,9 @@ export default function ConfigurationPane({
                     onRemove={() => removeSemester(si)}
                   />
                 ))}
-                <Button
-                  variant='outline'
-                  size='sm'
-                  className='w-full h-7 text-xs'
+                <AddButton
+                  label='Add Semester'
+                  fullWidth
                   onClick={() =>
                     appendSemester({
                       id: `sem_${Date.now()}`,
@@ -561,10 +556,7 @@ export default function ConfigurationPane({
                       courses: [],
                     })
                   }
-                >
-                  <Plus className='h-3 w-3 mr-1' />
-                  Add Semester
-                </Button>
+                />
                 <div className='h-4' />
               </div>
             </ScrollArea>
@@ -600,7 +592,7 @@ export default function ConfigurationPane({
                           name={`enrollment.phases.${i}.label` as Path<AppData>}
                           label='Label'
                         />
-                        <Grid2>
+                        <Grid cols={2}>
                           <Field
                             name={
                               `enrollment.phases.${i}.start` as Path<AppData>
@@ -623,13 +615,12 @@ export default function ConfigurationPane({
                             }
                             label='End Time'
                           />
-                        </Grid2>
+                        </Grid>
                       </Card>
                     ))}
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      className='w-full h-7 text-xs'
+                    <AddButton
+                      label='Add Phase'
+                      fullWidth
                       onClick={() =>
                         appendPhase({
                           label: 'New Phase',
@@ -639,10 +630,7 @@ export default function ConfigurationPane({
                           endTime: '11:59pm',
                         })
                       }
-                    >
-                      <Plus className='h-3 w-3 mr-1' />
-                      Add Phase
-                    </Button>
+                    />
                   </div>
                 </CollapsibleGroup>
 
@@ -667,7 +655,7 @@ export default function ConfigurationPane({
                           }
                           label='Label'
                         />
-                        <Grid2>
+                        <Grid cols={2}>
                           <Field
                             name={
                               `enrollment.deadlines.${i}.date` as Path<AppData>
@@ -680,13 +668,12 @@ export default function ConfigurationPane({
                             }
                             label='Time'
                           />
-                        </Grid2>
+                        </Grid>
                       </Card>
                     ))}
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      className='w-full h-7 text-xs'
+                    <AddButton
+                      label='Add Deadline'
+                      fullWidth
                       onClick={() =>
                         appendDeadline({
                           label: 'New Deadline',
@@ -694,10 +681,7 @@ export default function ConfigurationPane({
                           time: '11:59pm',
                         })
                       }
-                    >
-                      <Plus className='h-3 w-3 mr-1' />
-                      Add Deadline
-                    </Button>
+                    />
                   </div>
                 </CollapsibleGroup>
                 <div className='h-4' />

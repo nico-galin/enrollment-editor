@@ -1,4 +1,4 @@
-import type { AppData } from '../../default-data';
+import type { AppData } from '../../constants/default-data';
 import { PreviewTopbar } from './preview-topbar';
 import { PreviewAlertBar } from './preview-alert-bar';
 import { PreviewAcademicProfile } from './preview-academic-profile';
@@ -18,8 +18,10 @@ export default function Preview({
 
   return (
     <div ref={ref} className='font-sans text-[13px] bg-[#f4f4f4] min-h-full'>
-      <PreviewTopbar student={student} />
-      <Navigation />
+      <div className='sticky top-0'>
+        <PreviewTopbar student={student} />
+        <Navigation />
+      </div>
       <PreviewAlertBar />
       <div className='pt-[14px] px-4 pb-4 text-xl font-medium text-[#1673AC] bg-[#f4f4f4]'>
         My Academics

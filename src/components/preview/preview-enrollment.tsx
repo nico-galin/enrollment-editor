@@ -1,4 +1,4 @@
-import type { Enrollment } from '../../default-data';
+import type { Enrollment } from '../../constants/default-data';
 import Pane from '../pane';
 import plannerImg from '../../assets/planner.png';
 import infoImg from '../../assets/info.png';

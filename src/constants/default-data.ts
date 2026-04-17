@@ -7,9 +7,9 @@ export type {
   Student,
   Enrollment,
   AppData,
-} from './schema';
+} from '../schema';
 
-import type { AppData } from './schema';
+import type { AppData } from '../schema';
 
 export const defaultData: AppData = {
   student: {

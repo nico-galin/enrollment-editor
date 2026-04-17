@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
-import type { Course, Semester } from '../../default-data';
+import type { Course, Semester } from '../../constants/default-data';
 import Pane from '../pane';
+import { calcEnrolledUnits } from '../../lib/data-utils';
 
 function CourseRow({ course }: { course: Course }) {
   return (
@@ -41,10 +42,7 @@ function SemesterSection({
   semester: Semester;
   showEnrolledUnits: boolean;
 }) {
-  const enrolledUnits = semester.courses.reduce(
-    (sum, c) => sum + parseFloat(c.units || '0'),
-    0,
-  );
+  const enrolledUnits = calcEnrolledUnits(semester);
 
   return (
     <div>

@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
-import type { Student } from '../../default-data';
+import type { Student } from '../../constants/default-data';
 import Pane from '../pane';
 import infoImg from '../../assets/info.png';
+import { StudentAvatar } from '../student-avatar';
 
 function ProfileRow({
   label,
@@ -24,13 +25,12 @@ export function PreviewAcademicProfile({ student }: { student: Student }) {
       <Pane.Header>Academic Profile</Pane.Header>
       <Pane.Content>
         <div className='grid grid-cols-[120px_1fr] gap-[3px] mb-[7px] items-start'>
-          <div className='w-[90px] aspect-[3/3.6] bg-[#c4a882] flex items-center justify-center text-[#7a5c3a] text-[22px] font-bold overflow-hidden'>
-            {student.photo ? (
-              <img src={student.photo} className='w-full h-full object-cover' />
-            ) : (
-              student.name.charAt(0)
-            )}
-          </div>
+          <StudentAvatar
+            photo={student.photo}
+            name={student.name}
+            className='w-[90px] aspect-[3/3.6] bg-[#c4a882] flex items-center justify-center text-[#7a5c3a] text-[22px] font-bold overflow-hidden'
+            letterClassName='text-[#7a5c3a] text-[22px] font-bold'
+          />
           <div className='text-[15px] font-bold pt-1'>{student.name}</div>
         </div>
         <hr className='border-t border-[#efefef] my-3' />
