@@ -86,13 +86,39 @@ function Toolbar({
   );
 }
 
+const STORAGE_KEY = 'schedule-gen-data';
+
+function loadPersistedData(): AppData {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) return JSON.parse(stored) as AppData;
+  } catch {
+    // ignore parse errors
+  }
+  return defaultData;
+}
+
 function App() {
-  const [data, setData] = useState<AppData>(defaultData);
+  const [data, setData] = useState<AppData>(loadPersistedData);
   const previewRef = useRef<HTMLDivElement>(null);
+
+  const handleChange = (newData: AppData) => {
+    setData(newData);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+    } catch {
+      // ignore quota exceeded errors (e.g. large photos)
+    }
+  };
+
+  const handleReset = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setData(defaultData);
+  };
 
   return (
     <div className='flex h-screen w-screen overflow-hidden bg-muted/40'>
-      <ConfigurationPane data={data} onChange={setData} />
+      <ConfigurationPane data={data} onChange={handleChange} onReset={handleReset} />
       <div className='flex flex-col flex-1 min-w-0 gap-2 pr-2 pb-2 pt-2'>
         <Toolbar previewRef={previewRef} />
         <div className='flex-1 rounded-xl border border-gray-200 overflow-y-auto overflow-x-hidden w-full max-w-[1400px]'>

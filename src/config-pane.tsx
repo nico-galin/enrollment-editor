@@ -22,7 +22,7 @@ import {
   useForm,
   useFormContext,
 } from 'react-hook-form';
-import type { AppData } from './default-data';
+import { defaultData, type AppData } from './default-data';
 import { AppDataSchema } from './schema';
 
 // ---------------------------------------------------------------------------
@@ -420,9 +420,14 @@ function SemesterCard({ semIndex, canRemove, onRemove }: SemesterCardProps) {
 interface ConfigPaneProps {
   data: AppData;
   onChange: (data: AppData) => void;
+  onReset: () => void;
 }
 
-export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
+export default function ConfigurationPane({
+  data,
+  onChange,
+  onReset,
+}: ConfigPaneProps) {
   const form = useForm<AppData>({
     resolver: zodResolver(AppDataSchema),
     defaultValues: data,
@@ -700,6 +705,19 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
             </ScrollArea>
           </TabsContent>
         </Tabs>
+        <div className='py-3 border-t border-border'>
+          <Button
+            variant='ghost'
+            size='sm'
+            className='w-full h-7 text-xs text-muted-foreground hover:text-destructive'
+            onClick={() => {
+              form.reset(defaultData);
+              onReset();
+            }}
+          >
+            Reset to defaults
+          </Button>
+        </div>
       </div>
     </FormProvider>
   );
