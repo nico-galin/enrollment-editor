@@ -5,6 +5,7 @@ import { PreviewAcademicProfile } from './preview-academic-profile';
 import { PreviewSemesters } from './preview-semesters';
 import { PreviewEnrollment } from './preview-enrollment';
 import { RefObject } from 'react';
+import { Navigation } from './navigation';
 
 export default function Preview({
   data,
@@ -18,11 +19,12 @@ export default function Preview({
   return (
     <div ref={ref} className='font-sans text-[13px] bg-[#f4f4f4] min-h-full'>
       <PreviewTopbar student={student} />
+      <Navigation />
       <PreviewAlertBar />
       <div className='pt-[14px] px-4 pb-[6px] text-xl font-normal text-[#212121] bg-[#f4f4f4]'>
         My Academics
       </div>
-      <div className='flex px-4 pb-5 bg-[#f4f4f4]'>
+      <div className='flex px-4 pb-5 bg-[#f4f4f4] gap-4'>
         <PreviewAcademicProfile student={student} />
         <PreviewSemesters semesters={semesters} />
         <PreviewEnrollment enrollment={enrollment} />

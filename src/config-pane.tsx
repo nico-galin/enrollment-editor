@@ -1,35 +1,29 @@
-import { useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
-import {
-  useForm,
-  useFormContext,
-  useFieldArray,
-  Controller,
-  FormProvider,
-} from 'react-hook-form';
-import type { Path } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@/components/ui/accordion';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react';
-import { AppDataSchema } from './schema';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import type { Path } from 'react-hook-form';
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useFormContext,
+} from 'react-hook-form';
 import type { AppData } from './default-data';
+import { AppDataSchema } from './schema';
 
 // ---------------------------------------------------------------------------
 // Field — reads/writes via FormProvider context
@@ -178,8 +172,11 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
   const { control, watch } = useFormContext<AppData>();
   const sectionsName =
     `semesters.${semIndex}.courses.${courseIndex}.sections` as `semesters.${number}.courses.${number}.sections`;
-  const { fields: sections, append: appendSection, remove: removeSection } =
-    useFieldArray({ control, name: sectionsName });
+  const {
+    fields: sections,
+    append: appendSection,
+    remove: removeSection,
+  } = useFieldArray({ control, name: sectionsName });
 
   const code = watch(
     `semesters.${semIndex}.courses.${courseIndex}.code` as Path<AppData>,
@@ -195,20 +192,28 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
       defaultOpen={false}
     >
       <Field
-        name={`semesters.${semIndex}.courses.${courseIndex}.code` as Path<AppData>}
+        name={
+          `semesters.${semIndex}.courses.${courseIndex}.code` as Path<AppData>
+        }
         label='Code'
       />
       <Field
-        name={`semesters.${semIndex}.courses.${courseIndex}.title` as Path<AppData>}
+        name={
+          `semesters.${semIndex}.courses.${courseIndex}.title` as Path<AppData>
+        }
         label='Title'
       />
       <Grid2>
         <Field
-          name={`semesters.${semIndex}.courses.${courseIndex}.units` as Path<AppData>}
+          name={
+            `semesters.${semIndex}.courses.${courseIndex}.units` as Path<AppData>
+          }
           label='Units'
         />
         <Field
-          name={`semesters.${semIndex}.courses.${courseIndex}.grade` as Path<AppData>}
+          name={
+            `semesters.${semIndex}.courses.${courseIndex}.grade` as Path<AppData>
+          }
           label='Grade'
         />
       </Grid2>
@@ -248,15 +253,21 @@ function CourseCard({ semIndex, courseIndex, onRemove }: CourseCardProps) {
             </div>
             <Grid3>
               <Field
-                name={`semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.type` as Path<AppData>}
+                name={
+                  `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.type` as Path<AppData>
+                }
                 label='Type'
               />
               <Field
-                name={`semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.days` as Path<AppData>}
+                name={
+                  `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.days` as Path<AppData>
+                }
                 label='Days'
               />
               <Field
-                name={`semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.time` as Path<AppData>}
+                name={
+                  `semesters.${semIndex}.courses.${courseIndex}.sections.${xi}.time` as Path<AppData>
+                }
                 label='Time'
               />
             </Grid3>
@@ -281,8 +292,11 @@ function SemesterCard({ semIndex, canRemove, onRemove }: SemesterCardProps) {
   const { control, watch } = useFormContext<AppData>();
   const coursesName =
     `semesters.${semIndex}.courses` as `semesters.${number}.courses`;
-  const { fields: courses, append: appendCourse, remove: removeCourse } =
-    useFieldArray({ control, name: coursesName });
+  const {
+    fields: courses,
+    append: appendCourse,
+    remove: removeCourse,
+  } = useFieldArray({ control, name: coursesName });
 
   const label = watch(`semesters.${semIndex}.label` as Path<AppData>);
 
@@ -360,14 +374,23 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
     return () => subscription.unsubscribe();
   }, [watch, onChange]);
 
-  const { fields: semesters, append: appendSemester, remove: removeSemester } =
-    useFieldArray({ control, name: 'semesters' });
+  const {
+    fields: semesters,
+    append: appendSemester,
+    remove: removeSemester,
+  } = useFieldArray({ control, name: 'semesters' });
 
-  const { fields: phases, append: appendPhase, remove: removePhase } =
-    useFieldArray({ control, name: 'enrollment.phases' });
+  const {
+    fields: phases,
+    append: appendPhase,
+    remove: removePhase,
+  } = useFieldArray({ control, name: 'enrollment.phases' });
 
-  const { fields: deadlines, append: appendDeadline, remove: removeDeadline } =
-    useFieldArray({ control, name: 'enrollment.deadlines' });
+  const {
+    fields: deadlines,
+    append: appendDeadline,
+    remove: removeDeadline,
+  } = useFieldArray({ control, name: 'enrollment.deadlines' });
 
   return (
     <FormProvider {...form}>
@@ -383,7 +406,10 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
             </TabsTrigger>
             <TabsTrigger value='semesters' className='text-xs'>
               Semesters
-              <Badge variant='secondary' className='h-4 px-1.5 text-[10px] ml-1'>
+              <Badge
+                variant='secondary'
+                className='h-4 px-1.5 text-[10px] ml-1'
+              >
                 {semesters.length}
               </Badge>
             </TabsTrigger>
@@ -398,16 +424,34 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
               <div className='space-y-1'>
                 <CollapsibleGroup title='Identity'>
                   <Grid2>
-                    <Field name='student.name' label='Full Name' className='col-span-2' />
+                    <Field
+                      name='student.name'
+                      label='Full Name'
+                      className='col-span-2'
+                    />
                     <Field name='student.initial' label='Avatar Initial' />
                     <Field name='student.career' label='Career' />
                   </Grid2>
                   <Grid2>
-                    <Field name='student.major' label='Major' className='col-span-2' />
-                    <Field name='student.majorDegree' label='Degree' className='col-span-2' />
+                    <Field
+                      name='student.major'
+                      label='Major'
+                      className='col-span-2'
+                    />
+                    <Field
+                      name='student.majorDegree'
+                      label='Degree'
+                      className='col-span-2'
+                    />
                     <Field name='student.level' label='Level' />
-                    <Field name='student.expectedGraduation' label='Expected Grad' />
-                    <Field name='student.termsInAttendance' label='Terms in Attendance' />
+                    <Field
+                      name='student.expectedGraduation'
+                      label='Expected Grad'
+                    />
+                    <Field
+                      name='student.termsInAttendance'
+                      label='Terms in Attendance'
+                    />
                   </Grid2>
                 </CollapsibleGroup>
                 <Separator />
@@ -461,7 +505,10 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
             <ScrollArea className='h-full'>
               <div className='space-y-1'>
                 <CollapsibleGroup title='Active Semester'>
-                  <Field name='enrollment.semester' label='Active Semester Tab' />
+                  <Field
+                    name='enrollment.semester'
+                    label='Active Semester Tab'
+                  />
                 </CollapsibleGroup>
 
                 <Separator />
@@ -471,16 +518,41 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
                     {phases.map((p, i) => (
                       <Card
                         key={p.id}
-                        title={(watch(`enrollment.phases.${i}.label` as Path<AppData>) as string) || 'Phase'}
+                        title={
+                          (watch(
+                            `enrollment.phases.${i}.label` as Path<AppData>,
+                          ) as string) || 'Phase'
+                        }
                         onRemove={() => removePhase(i)}
                         defaultOpen={false}
                       >
-                        <Field name={`enrollment.phases.${i}.label` as Path<AppData>} label='Label' />
+                        <Field
+                          name={`enrollment.phases.${i}.label` as Path<AppData>}
+                          label='Label'
+                        />
                         <Grid2>
-                          <Field name={`enrollment.phases.${i}.start` as Path<AppData>} label='Start Date' />
-                          <Field name={`enrollment.phases.${i}.startTime` as Path<AppData>} label='Start Time' />
-                          <Field name={`enrollment.phases.${i}.end` as Path<AppData>} label='End Date' />
-                          <Field name={`enrollment.phases.${i}.endTime` as Path<AppData>} label='End Time' />
+                          <Field
+                            name={
+                              `enrollment.phases.${i}.start` as Path<AppData>
+                            }
+                            label='Start Date'
+                          />
+                          <Field
+                            name={
+                              `enrollment.phases.${i}.startTime` as Path<AppData>
+                            }
+                            label='Start Time'
+                          />
+                          <Field
+                            name={`enrollment.phases.${i}.end` as Path<AppData>}
+                            label='End Date'
+                          />
+                          <Field
+                            name={
+                              `enrollment.phases.${i}.endTime` as Path<AppData>
+                            }
+                            label='End Time'
+                          />
                         </Grid2>
                       </Card>
                     ))}
@@ -511,14 +583,33 @@ export default function ConfigurationPane({ data, onChange }: ConfigPaneProps) {
                     {deadlines.map((d, i) => (
                       <Card
                         key={d.id}
-                        title={(watch(`enrollment.deadlines.${i}.label` as Path<AppData>) as string) || 'Deadline'}
+                        title={
+                          (watch(
+                            `enrollment.deadlines.${i}.label` as Path<AppData>,
+                          ) as string) || 'Deadline'
+                        }
                         onRemove={() => removeDeadline(i)}
                         defaultOpen={false}
                       >
-                        <Field name={`enrollment.deadlines.${i}.label` as Path<AppData>} label='Label' />
+                        <Field
+                          name={
+                            `enrollment.deadlines.${i}.label` as Path<AppData>
+                          }
+                          label='Label'
+                        />
                         <Grid2>
-                          <Field name={`enrollment.deadlines.${i}.date` as Path<AppData>} label='Date' />
-                          <Field name={`enrollment.deadlines.${i}.time` as Path<AppData>} label='Time' />
+                          <Field
+                            name={
+                              `enrollment.deadlines.${i}.date` as Path<AppData>
+                            }
+                            label='Date'
+                          />
+                          <Field
+                            name={
+                              `enrollment.deadlines.${i}.time` as Path<AppData>
+                            }
+                            label='Time'
+                          />
                         </Grid2>
                       </Card>
                     ))}
