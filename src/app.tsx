@@ -108,14 +108,23 @@ function App() {
   const previewRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [previewScale, setPreviewScale] = useState(1);
+  const [previewNaturalHeight, setPreviewNaturalHeight] = useState(0);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setPreviewScale(entry.contentRect.width / PREVIEW_WIDTH);
+    const container = containerRef.current;
+    const preview = previewRef.current;
+    if (!container || !preview) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === container) {
+          setPreviewScale(entry.contentRect.width / PREVIEW_WIDTH);
+        } else if (entry.target === preview) {
+          setPreviewNaturalHeight(entry.contentRect.height);
+        }
+      }
     });
-    observer.observe(el);
+    observer.observe(container);
+    observer.observe(preview);
     return () => observer.disconnect();
   }, []);
 
@@ -140,9 +149,16 @@ function App() {
         <div className='flex flex-col md:flex-1 min-w-0 gap-2 md:pr-2 pb-2 order-first md:order-last overflow-hidden max-sm:mx-2'>
           <div
             ref={containerRef}
-            className='rounded-xl border border-gray-200 overflow-x-hidden w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+            className='rounded-xl border border-gray-200 overflow-hidden w-full'
+            style={{ height: previewNaturalHeight * previewScale || undefined }}
           >
-            <div style={{ zoom: previewScale, width: `${PREVIEW_WIDTH}px` }}>
+            <div
+              style={{
+                width: `${PREVIEW_WIDTH}px`,
+                transform: `scale(${previewScale})`,
+                transformOrigin: 'top left',
+              }}
+            >
               <Preview data={data} ref={previewRef} />
             </div>
           </div>
